@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using ninja_api.Repository;
 
 namespace ninja_api
 {
@@ -26,6 +27,7 @@ namespace ninja_api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddScoped<IUserServiceRepository, UserService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
