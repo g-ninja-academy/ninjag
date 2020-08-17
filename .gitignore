@@ -1,2 +1,3 @@
 .vs/
 Ninja.Application/obj/
+/Ninja.Application/bin/Debug/netcoreapp3.1

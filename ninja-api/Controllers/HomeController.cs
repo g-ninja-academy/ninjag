@@ -31,6 +31,8 @@ namespace ninja_api.Controllers
         public void Post([FromBody] User user)
         {
             var newUsr = new User(user.Id, user.Name, user.Email);
+
+            throw new Exception("Example exception");
             _users.Add(newUsr);
         }
 

@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Ninja.Application.Middlewares;
 
 namespace ninja_api
 {
@@ -26,6 +27,8 @@ namespace ninja_api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -36,6 +39,7 @@ namespace ninja_api
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseMiddleware<ExceptionHandlerMiddleware>();
             app.UseHttpsRedirection();
 
             app.UseRouting();

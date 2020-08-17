@@ -5,5 +5,9 @@
     <RootNamespace>ninja_api</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Ninja.Application\Ninja.Application.csproj" />
+  </ItemGroup>
+
 
 </Project>
