@@ -10,44 +10,54 @@ namespace ninja_api.Controllers
     [ApiController]
     public class HomeController : ControllerBase
     {
-        private static readonly List<User> _users = new List<User>();
-        
+        readonly FakeUserService _fakeService = new FakeUserService();
+
         // GET: api/<HomeController>
         [HttpGet]
         public IEnumerable<User> Get()
         {
-            return _users;
+            var getUsers = _fakeService.GetFakeUsersService();
+            return getUsers;
         }
 
         // GET api/<HomeController>/5
         [HttpGet("{id}")]
         public User Get(int id)
         {
-            return _users.FirstOrDefault(m => m.Id == id);
+            var getUsers = _fakeService.GetFakeUsersService();
+            return getUsers.FirstOrDefault(m => m.Id == id);
         }
 
         // POST api/<HomeController>
         [HttpPost]
-        public void Post([FromBody] User user)
+        public User Post([FromBody] User user)
         {
             var newUsr = new User(user.Id, user.Name, user.Email);
-            _users.Add(newUsr);
+            var getUsers = _fakeService.GetFakeUsersService().ToList();
+
+            getUsers.Add(newUsr);
+
+            return getUsers.LastOrDefault();
         }
 
         // PUT api/<HomeController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] User user)
+        public User Put(int id, [FromBody] User user)
         {
-            var usr = _users.FirstOrDefault(m => m.Id == id);
-            if (usr == null)
+            var getUsers = _fakeService.GetFakeUsersService().ToList();
+
+            var updateUser = getUsers.FirstOrDefault(m => m.Id == id);
+            if (updateUser == null)
             {
                 Console.WriteLine($"No User with Id {id} were found");
             }
             else
             {
-                usr.Name = user.Name;
-                usr.Email = user.Email;
+                updateUser.Name = user.Name;
+                updateUser.Email = user.Email;
             }
+
+            return updateUser;
         }
     }
 }
