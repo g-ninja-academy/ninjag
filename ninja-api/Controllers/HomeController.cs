@@ -4,43 +4,50 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace ninja_api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class HomeController : ControllerBase
     {
-        private static readonly User[] Users = new[]
-        {
-            new User { Id = 1, Name = "Emmanuel Esp", Email = "emmanesp@globant.com" }
-        };
-
+        private static readonly List<User> _users = new List<User>();
+        
         // GET: api/<HomeController>
         [HttpGet]
         public IEnumerable<User> Get()
         {
-            return Users;
+            return _users;
         }
 
         // GET api/<HomeController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public User Get(int id)
         {
-            return "value";
+            return _users.FirstOrDefault(m => m.Id == id);
         }
 
         // POST api/<HomeController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void Post([FromBody] User user)
         {
+            var newUsr = new User(user.Id, user.Name, user.Email);
+            _users.Add(newUsr);
         }
 
         // PUT api/<HomeController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public void Put(int id, [FromBody] User user)
         {
+            var usr = _users.FirstOrDefault(m => m.Id == id);
+            if (usr == null)
+            {
+                Console.WriteLine($"No User with Id {id} were found");
+            }
+            else
+            {
+                usr.Name = user.Name;
+                usr.Email = user.Email;
+            }
         }
     }
 }
