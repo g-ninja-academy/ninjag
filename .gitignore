@@ -1,1 +1,6 @@
 .vs/
+ninja-unit-test/obj/
+
+Ninja.Application/bin/
+
+Ninja.Application/obj/
