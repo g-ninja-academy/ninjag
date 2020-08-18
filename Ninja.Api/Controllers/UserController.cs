@@ -10,19 +10,19 @@ namespace Ninja.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class HomeController : ControllerBase
+    public class UserController : ControllerBase
     {
         public readonly IUserServiceRepository _userServiceRespository;
 
-        public HomeController(IUserServiceRepository userServiceRespository)
+        public UserController(IUserServiceRepository userServiceRespository)
         {
             _userServiceRespository = userServiceRespository;
         }
 
         [HttpGet]
-        public IEnumerable<User> Get()
+        public ActionResult<List<User>> Get()
         {
-            return _userServiceRespository.GetUsers();
+            return Ok(_userServiceRespository.GetUsers());
         }
 
         [HttpGet("{id}")]
