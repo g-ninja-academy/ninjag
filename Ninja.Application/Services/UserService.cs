@@ -1,7 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using Ninja.Application.Common.Models;
+using System.Collections.Generic;
 using System.Linq;
 
-namespace ninja_api.Repository
+namespace Ninja.Application.Services
 {
     public class UserService : IUserServiceRepository
     {

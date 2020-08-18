@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ninja_api
+namespace Ninja.Application.Common.Models
 {
     public class User
     {
