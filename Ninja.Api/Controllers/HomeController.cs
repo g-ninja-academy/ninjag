@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using ninja_api.Repository;
+using Ninja.Application.Common.Models;
+using Ninja.Application.Services;
 
-namespace ninja_api.Controllers
+namespace Ninja.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

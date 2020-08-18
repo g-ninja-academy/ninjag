@@ -14,7 +14,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ninja-api\ninja-api.csproj" />
+    <ProjectReference Include="..\ninja-api\Ninja.Api.csproj" />
+    <ProjectReference Include="..\Ninja.Api\Ninja.Api.csproj" />
   </ItemGroup>
 
 </Project>

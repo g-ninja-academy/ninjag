@@ -1,9 +1,7 @@
-﻿using System;
+﻿using Ninja.Application.Common.Models;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace ninja_api.Repository
+namespace Ninja.Application.Services
 {
     public interface IUserServiceRepository
     {

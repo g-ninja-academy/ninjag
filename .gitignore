@@ -7,3 +7,5 @@ ninja-unit-test/obj/
 Ninja.Application/bin/
 
 Ninja.Application/obj/
+/Ninja.UnitTests/obj
+/Ninja.UnitTests/bin/Debug/netcoreapp3.1

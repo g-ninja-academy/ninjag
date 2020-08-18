@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using ninja_api;
-using ninja_api.Controllers;
+﻿using Ninja.Api.Controllers;
+using Ninja.Application.Common.Models;
 using NUnit.Framework;
+using System.Collections.Generic;
 
-namespace ninja_unit_test
+namespace Ninja.UnitTests
 {
     public class HomeTest
     {
