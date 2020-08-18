@@ -5,11 +5,11 @@ using System.Text;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Ninja.Api.Controllers;
-using Ninja.Application.Common.Models;
-using Ninja.Application.Services;
+using Ninja.Api.Common.Models;
+using Ninja.Api.Services;
 using NUnit.Framework;
 
-namespace ninja_unit_test.Controllers.Users
+namespace Ninja.UnitTests.Controllers.Users
 {
     [TestFixture]
     public class GetUsersTests
@@ -24,11 +24,20 @@ namespace ninja_unit_test.Controllers.Users
             _controller = new UserController(_service.Object);
         }
 
+        public List<User> GetUsersResponse()
+        {
+            return new List<User>()
+            {
+                new User() 
+                {
+                    Email = "max@globant.com", Id = 1, Name = "Max"
+                }
+            };
+        }
         [Test]
         public void GetUsers_ReturnAllUsers_Successfully()
         {
-            _service.Setup(m => m.GetUsers()).Returns(new List<User>()
-                {new User() {Email = "max@globant.com", Id = 1, Name = "Max"}});
+            _service.Setup(m => m.GetUsers()).Returns(GetUsersResponse());
 
             var result = _controller.Get();
             var objectResult = (ObjectResult)result.Result;

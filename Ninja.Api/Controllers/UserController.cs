@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Ninja.Application.Common.Models;
-using Ninja.Application.Services;
+using Ninja.Api.Common.Models;
+using Ninja.Api.Services;
 
 namespace Ninja.Api.Controllers
 {
@@ -26,21 +26,21 @@ namespace Ninja.Api.Controllers
         }
 
         [HttpGet("{id}")]
-        public User Get(int id)
+        public ActionResult<User> Get(int id)
         {
-            return _userServiceRespository.GetUserById(id);
+            return Ok(_userServiceRespository.GetUserById(id));
         }
 
         [HttpPost]
-        public User Post([FromBody] User user)
+        public ActionResult<User> Post([FromBody] User user)
         {
-            return _userServiceRespository.CreateUser(user);
+            return Ok(_userServiceRespository.CreateUser(user));
         }
 
         [HttpPut("{id}")]
-        public User Put(int id, [FromBody] User user)
+        public ActionResult<User> Put(int id, [FromBody] User user)
         {
-            return _userServiceRespository.UpdateUser(id, user);
+            return Ok(_userServiceRespository.UpdateUser(id, user));
         }
     }
 }

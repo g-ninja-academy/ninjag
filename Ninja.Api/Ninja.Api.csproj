@@ -2,12 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <RootNamespace>ninja_api</RootNamespace>
+    <RootNamespace>Ninja.Api</RootNamespace>
   </PropertyGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Ninja.Application\Ninja.Application.csproj" />
-  </ItemGroup>
 
 
 </Project>

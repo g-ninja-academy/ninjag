@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <RootNamespace>ninja_unit_test</RootNamespace>
+    <RootNamespace>Ninja.UnitTests</RootNamespace>
 
     <IsPackable>false</IsPackable>
   </PropertyGroup>
@@ -16,7 +16,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Ninja.Api\Ninja.Api.csproj" />
-    <ProjectReference Include="..\Ninja.Application\Ninja.Application.csproj" />
   </ItemGroup>
 
 </Project>
