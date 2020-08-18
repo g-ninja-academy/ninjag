@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using ninja_api.Repository;
 
 namespace ninja_api.Controllers
 {
@@ -10,54 +11,35 @@ namespace ninja_api.Controllers
     [ApiController]
     public class HomeController : ControllerBase
     {
-        readonly FakeUserService _fakeService = new FakeUserService();
+        public readonly IUserServiceRepository _userServiceRespository;
 
-        // GET: api/<HomeController>
+        public HomeController(IUserServiceRepository userServiceRespository)
+        {
+            _userServiceRespository = userServiceRespository;
+        }
+
         [HttpGet]
         public IEnumerable<User> Get()
         {
-            var getUsers = _fakeService.GetFakeUsersService();
-            return getUsers;
+            return _userServiceRespository.GetUsers();
         }
 
-        // GET api/<HomeController>/5
         [HttpGet("{id}")]
         public User Get(int id)
         {
-            var getUsers = _fakeService.GetFakeUsersService();
-            return getUsers.FirstOrDefault(m => m.Id == id);
+            return _userServiceRespository.GetUserById(id);
         }
 
-        // POST api/<HomeController>
         [HttpPost]
         public User Post([FromBody] User user)
         {
-            var newUsr = new User(user.Id, user.Name, user.Email);
-            var getUsers = _fakeService.GetFakeUsersService().ToList();
-
-            getUsers.Add(newUsr);
-
-            return getUsers.LastOrDefault();
+            return _userServiceRespository.CreateUser(user);
         }
 
-        // PUT api/<HomeController>/5
         [HttpPut("{id}")]
         public User Put(int id, [FromBody] User user)
         {
-            var getUsers = _fakeService.GetFakeUsersService().ToList();
-
-            var updateUser = getUsers.FirstOrDefault(m => m.Id == id);
-            if (updateUser == null)
-            {
-                Console.WriteLine($"No User with Id {id} were found");
-            }
-            else
-            {
-                updateUser.Name = user.Name;
-                updateUser.Email = user.Email;
-            }
-
-            return updateUser;
+            return _userServiceRespository.UpdateUser(id, user);
         }
     }
 }
