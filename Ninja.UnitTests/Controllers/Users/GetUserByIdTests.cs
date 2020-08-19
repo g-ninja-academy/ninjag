@@ -24,9 +24,9 @@ namespace Ninja.UnitTests.Controllers.Users
             _controller = new UserController(_service.Object);
         }
 
-        public User GetUserResponse()
+        public UserVm GetUserResponse()
         {
-            return new User()
+            return new UserVm()
             {
                 Email = "max@globant.com",
                 Id = 1,
@@ -41,9 +41,9 @@ namespace Ninja.UnitTests.Controllers.Users
 
             var result = _controller.Get(id);
             var objectResult = (ObjectResult)result.Result;
-            var user = (User)objectResult.Value;
+            var user = (UserVm)objectResult.Value;
 
-            Assert.IsInstanceOf<User>(user);
+            Assert.IsInstanceOf<UserVm>(user);
             Assert.AreEqual(1, user.Id);
         }
 

@@ -24,11 +24,11 @@ namespace Ninja.UnitTests.Controllers.Users
             _controller = new UserController(_service.Object);
         }
 
-        public List<User> GetUsersResponse()
+        public List<UserVm> GetUsersResponse()
         {
-            return new List<User>()
+            return new List<UserVm>()
             {
-                new User() 
+                new UserVm() 
                 {
                     Email = "max@globant.com", Id = 1, Name = "Max"
                 }
@@ -41,9 +41,9 @@ namespace Ninja.UnitTests.Controllers.Users
 
             var result = _controller.Get();
             var objectResult = (ObjectResult)result.Result;
-            var listUsers = (List<User>)objectResult.Value;
+            var listUsers = (List<UserVm>)objectResult.Value;
 
-            Assert.IsInstanceOf<List<User>>(listUsers);
+            Assert.IsInstanceOf<List<UserVm>>(listUsers);
             Assert.AreEqual(1, listUsers.Count);
         }
 
