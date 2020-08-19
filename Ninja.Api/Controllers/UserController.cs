@@ -24,13 +24,7 @@ namespace Ninja.Api.Controllers
         {
             return Ok(_userServiceRespository.GetUsers());
         }
-
-        [HttpGet("exceptionTest")]
-        public ActionResult<List<User>> GetForceException()
-        {
-            throw new Exception("This is a demo Exception. Do not try this at home.");
-        }
-
+        
         [HttpGet("{id}")]
         public ActionResult<User> Get(int id)
         {
