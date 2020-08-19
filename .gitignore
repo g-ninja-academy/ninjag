@@ -11,3 +11,5 @@ Ninja.Application/obj/
 /Ninja.UnitTests/bin/Debug/netcoreapp3.1
 /Ninja.Domain/obj
 /Ninja.Infrastructure/obj
+/Ninja.Domain/bin/Debug/netcoreapp3.1
+/Ninja.Infrastructure/bin/Debug/netcoreapp3.1

@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Ninja.Api.Controllers;
+using Ninja.Application.Common;
 using Ninja.Application.Common.Models;
 using Ninja.Application.Services;
+using Ninja.Application.Users.Queries;
 using NUnit.Framework;
 
 namespace Ninja.UnitTests.Controllers.Users
@@ -14,17 +17,18 @@ namespace Ninja.UnitTests.Controllers.Users
     [TestFixture]
     public class GetUsersTests
     {
-        private Mock<IUserServiceRepository> _service;
+        private Mock<IMediator> _mediator;
+        
         private UserController _controller;
 
         [SetUp]
         public void SetUp()
         {
-            _service = new Mock<IUserServiceRepository>();
-            _controller = new UserController(_service.Object);
+            _mediator = new Mock<IMediator>();
+            _controller = new UserController(_mediator.Object);
         }
 
-        public List<UserVm> GetUsersResponse()
+        public IEnumerable<UserVm> GetUsersResponse()
         {
             return new List<UserVm>()
             {
@@ -37,20 +41,22 @@ namespace Ninja.UnitTests.Controllers.Users
         [Test]
         public void GetUsers_ReturnAllUsers_Successfully()
         {
-            _service.Setup(m => m.GetUsers()).Returns(GetUsersResponse());
+            _mediator.Setup(m => m.Send(It.IsAny<GetAllUsersQuery>(), default))
+                .ReturnsAsync(Response.Ok200<IEnumerable<UserVm>>(GetUsersResponse()));
 
-            var result = _controller.Get();
-            var objectResult = (ObjectResult)result.Result;
-            var listUsers = (List<UserVm>)objectResult.Value;
+            var result =  _controller.Get();
+            var objectResult = (ObjectResult)result.Result.Result;
+            var listUsers = (Response<IEnumerable<UserVm>>)objectResult.Value;
 
-            Assert.IsInstanceOf<List<UserVm>>(listUsers);
-            Assert.AreEqual(1, listUsers.Count);
+            Assert.IsInstanceOf<Response<IEnumerable<UserVm>>>(objectResult.Value);
+            Assert.AreEqual(1, listUsers.Data.Count());
         }
 
         [Test]
         public void GetUsers_ThrowAnException()
         {
-            _service.Setup(m => m.GetUsers()).Throws(new Exception());
+            _mediator.Setup(m => m.Send(It.IsAny<GetAllUsersQuery>(), default))
+                .Throws(new Exception());
 
             Assert.That(() => _controller.Get(), Throws.TypeOf<Exception>());
         }
