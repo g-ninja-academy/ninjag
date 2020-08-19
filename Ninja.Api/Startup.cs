@@ -3,8 +3,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Ninja.Api.Middlewares;
-using Ninja.Api.Services;
+using Ninja.Application.Middlewares;
+using Ninja.Application.Services;
 
 namespace Ninja.Api
 {
