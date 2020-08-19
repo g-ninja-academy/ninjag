@@ -23,9 +23,9 @@ namespace Ninja.UnitTests.Controllers.Users
             _controller = new UserController(_service.Object);
         }
 
-        public User SetUserResponse()
+        public UserVm SetUserResponse()
         {
-            return new User()
+            return new UserVm()
             {
                 Email = "max@globant.com",
                 Id = 1,
@@ -36,20 +36,20 @@ namespace Ninja.UnitTests.Controllers.Users
         [TestCase(1,"max@mail.com","Max")]
         public void CreateUser_Successfully(int id, string email, string name)
         {
-            _service.Setup(m => m.CreateUser(It.IsAny<User>())).Returns(SetUserResponse());
+            _service.Setup(m => m.CreateUser(It.IsAny<UserVm>())).Returns(SetUserResponse());
 
             var result = _controller.Post(SetUserResponse());
             var objectResult = (ObjectResult)result.Result;
-            var user = (User)objectResult.Value;
+            var user = (UserVm)objectResult.Value;
 
-            Assert.IsInstanceOf<User>(user);
+            Assert.IsInstanceOf<UserVm>(user);
             Assert.AreEqual(1, user.Id);
         }
         [Test]
         [TestCase(1, "max@mail.com", "Max")]
         public void CreateUser_ThowsException(int id, string email, string name)
         {
-            _service.Setup(m => m.CreateUser(It.IsAny<User>())).Throws(new Exception());
+            _service.Setup(m => m.CreateUser(It.IsAny<UserVm>())).Throws(new Exception());
 
             Assert.That(() => _controller.Post(SetUserResponse()), Throws.TypeOf<Exception>());
         }

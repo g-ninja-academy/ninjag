@@ -5,9 +5,9 @@ namespace Ninja.Application.Services
 {
     public interface IUserServiceRepository
     {
-        IEnumerable<User> GetUsers();
-        User GetUserById(int id);
-        User CreateUser(User user);
-        User UpdateUser(int id, User updatedUser);
+        IEnumerable<UserVm> GetUsers();
+        UserVm GetUserById(int id);
+        UserVm CreateUser(UserVm user);
+        UserVm UpdateUser(int id, UserVm updatedUser);
     }
 }

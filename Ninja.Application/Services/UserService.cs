@@ -6,26 +6,26 @@ namespace Ninja.Application.Services
 {
     public class UserService : IUserServiceRepository
     {
-        private static readonly List<User> _users = new List<User>();
+        private static readonly List<UserVm> _users = new List<UserVm>();
 
-        public User CreateUser(User user)
+        public UserVm CreateUser(UserVm user)
         {
             _users.Add(user);
 
             return user;
         }
 
-        public User GetUserById(int id)
+        public UserVm GetUserById(int id)
         {
             return _users.SingleOrDefault(user => user.Id == id);
         }
 
-        public IEnumerable<User> GetUsers()
+        public IEnumerable<UserVm> GetUsers()
         {
             return _users;
         }
 
-        public User UpdateUser(int id, User updatedUser)
+        public UserVm UpdateUser(int id, UserVm updatedUser)
         {
             var user = _users.FirstOrDefault(m => m.Id == id);
 

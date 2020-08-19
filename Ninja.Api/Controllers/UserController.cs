@@ -20,25 +20,25 @@ namespace Ninja.Api.Controllers
         }
 
         [HttpGet]
-        public ActionResult<List<User>> Get()
+        public ActionResult<List<UserVm>> Get()
         {
             return Ok(_userServiceRespository.GetUsers());
         }
         
         [HttpGet("{id}")]
-        public ActionResult<User> Get(int id)
+        public ActionResult<UserVm> Get(int id)
         {
             return Ok(_userServiceRespository.GetUserById(id));
         }
 
         [HttpPost]
-        public ActionResult<User> Post([FromBody] User user)
+        public ActionResult<UserVm> Post([FromBody] UserVm user)
         {
             return Ok(_userServiceRespository.CreateUser(user));
         }
 
         [HttpPut("{id}")]
-        public ActionResult<User> Put(int id, [FromBody] User user)
+        public ActionResult<UserVm> Put(int id, [FromBody] UserVm user)
         {
             return Ok(_userServiceRespository.UpdateUser(id, user));
         }
