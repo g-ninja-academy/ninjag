@@ -8,7 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Ninja.UnitTests.Controllers.Users
+namespace Ninja.Api.UnitTests.Controllers.Users
 {
 
     [TestFixture]
