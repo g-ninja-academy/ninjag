@@ -6,7 +6,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace Ninja.Api.Middlewares
+namespace Ninja.Application.Middlewares
 {
     public class ExceptionHandlerMiddleware
     {

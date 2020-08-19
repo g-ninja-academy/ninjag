@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Ninja.Api.Controllers;
-using Ninja.Api.Common.Models;
-using Ninja.Api.Services;
+using Ninja.Application.Common.Models;
+using Ninja.Application.Services;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;

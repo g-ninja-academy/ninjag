@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Ninja.Api.Common.Models;
-using Ninja.Api.Services;
+using Ninja.Application.Common.Models;
+using Ninja.Application.Services;
 
 namespace Ninja.Api.Controllers
 {
