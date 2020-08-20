@@ -35,16 +35,11 @@ namespace Ninja.Api.Controllers
             return StatusCode(result.StatusCode, result);
         }
 
-        //[HttpGet("{id}")]
-        //public ActionResult<UserVm> Get(int id)
-        //{
-        //    return Ok(_userServiceRespository.GetUserById(id));
-        //}
-
-        [HttpGet("exception/{id}")]
-        public ActionResult<UserVm> GetForceEx(int id)
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Response<UserVm>>> Get(int id)
         {
-            throw new Exception("This is a message for loggin service");
+            var result = await _mediator.Send(new GetUserByIdQuery(id));
+            return StatusCode(result.StatusCode, result);
         }
 
         //[HttpPost]
