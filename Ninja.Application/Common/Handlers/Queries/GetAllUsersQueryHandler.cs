@@ -18,6 +18,7 @@ namespace Ninja.Application.Common.Handlers.Queries
         {
             _userServiceRespository = userServiceRespository;
         }
+
         public async Task<Response<IEnumerable<UserVm>>> Handle(GetAllUsersQuery request, CancellationToken cancellationToken)
         {
             return Response.Ok200(_userServiceRespository.GetUsers());
