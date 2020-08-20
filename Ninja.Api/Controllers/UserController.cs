@@ -16,12 +16,13 @@ namespace Ninja.Api.Controllers
     public class UserController : ControllerBase
     {
         private readonly IMediator _mediator;
-        public readonly IUserServiceRepository _userServiceRespository;
+        //public readonly IUserServiceRepository _userServiceRespository;
 
-        public UserController(IUserServiceRepository userServiceRespository)
-        {
-            _userServiceRespository = userServiceRespository;
-        }
+        //public UserController(IUserServiceRepository userServiceRespository)
+        //{
+        //    _userServiceRespository = userServiceRespository;
+        //}
+
         public UserController(IMediator mediator)
         {
             _mediator = mediator;
@@ -33,23 +34,29 @@ namespace Ninja.Api.Controllers
             var result = await _mediator.Send(new GetAllUsersQuery());
             return StatusCode(result.StatusCode, result);
         }
-        
-        [HttpGet("{id}")]
-        public ActionResult<UserVm> Get(int id)
+
+        //[HttpGet("{id}")]
+        //public ActionResult<UserVm> Get(int id)
+        //{
+        //    return Ok(_userServiceRespository.GetUserById(id));
+        //}
+
+        [HttpGet("exception/{id}")]
+        public ActionResult<UserVm> GetForceEx(int id)
         {
-            return Ok(_userServiceRespository.GetUserById(id));
+            throw new Exception("This is a message for loggin service");
         }
 
-        [HttpPost]
-        public ActionResult<UserVm> Post([FromBody] UserVm user)
-        {
-            return Ok(_userServiceRespository.CreateUser(user));
-        }
+        //[HttpPost]
+        //public ActionResult<UserVm> Post([FromBody] UserVm user)
+        //{
+        //    return Ok(_userServiceRespository.CreateUser(user));
+        //}
 
-        [HttpPut("{id}")]
-        public ActionResult<UserVm> Put(int id, [FromBody] UserVm user)
-        {
-            return Ok(_userServiceRespository.UpdateUser(id, user));
-        }
+        //[HttpPut("{id}")]
+        //public ActionResult<UserVm> Put(int id, [FromBody] UserVm user)
+        //{
+        //    return Ok(_userServiceRespository.UpdateUser(id, user));
+        //}
     }
 }
