@@ -12,7 +12,7 @@ using Ninja.Application.Services;
 using Ninja.Application.Users.Queries;
 using NUnit.Framework;
 
-namespace Ninja.UnitTests.Controllers.Users
+namespace Ninja.Api.UnitTests.Controllers.Users
 {
     [TestFixture]
     public class GetUsersTests
