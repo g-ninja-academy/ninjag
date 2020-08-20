@@ -6,7 +6,7 @@ using Ninja.Application.Services;
 using NUnit.Framework;
 using System;
 
-namespace Ninja.UnitTests.Controllers.Users
+namespace Ninja.Api.UnitTests.Controllers.Users
 {
     [TestFixture]
     public class UpdateUserTests

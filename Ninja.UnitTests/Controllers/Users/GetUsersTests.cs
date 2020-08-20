@@ -9,7 +9,7 @@ using Ninja.Application.Common.Models;
 using Ninja.Application.Services;
 using NUnit.Framework;
 
-namespace Ninja.UnitTests.Controllers.Users
+namespace Ninja.Api.UnitTests.Controllers.Users
 {
     [TestFixture]
     public class GetUsersTests
