@@ -6,4 +6,8 @@
     <RootNamespace>Ninja.Infrastructure</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Ninja.Application\Ninja.Application.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -26,6 +26,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Ninja.Application\Ninja.Application.csproj" />
+    <ProjectReference Include="..\Ninja.Infrastructure\Ninja.Infrastructure.csproj" />
   </ItemGroup>
 
 

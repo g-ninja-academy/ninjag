@@ -1,7 +1,9 @@
 ﻿using MediatR;
+using Ninja.Application.Common.Interfaces;
 using Ninja.Application.Common.Models;
 using Ninja.Application.Services;
 using Ninja.Application.Users.Commands;
+using Ninja.Domain.Entities.UserModel;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -12,16 +14,19 @@ namespace Ninja.Application.Common.Handlers.Commands
 {
     public class AddUserCommandHandler : IRequestHandler<AddUserCommand, Response<UserVm>>
     {
-        public readonly IUserServiceRepository _userServiceRespository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public AddUserCommandHandler(IUserServiceRepository userServiceRespository)
+        public AddUserCommandHandler(IUnitOfWork unitOfWork)
         {
-            _userServiceRespository = userServiceRespository;
+            _unitOfWork = unitOfWork;
         }
 
         public async Task<Response<UserVm>> Handle(AddUserCommand request, CancellationToken cancellationToken)
         {
-            return Response.Ok200(_userServiceRespository.CreateUser(request.UserViewModel));
+            User user = new User { UserId = request.UserViewModel.Id, Name = request.UserViewModel.Name, Email = request.UserViewModel.Email }
+            _unitOfWork.Users.Add(user);
+            
+            return Response.Ok200(request.UserViewModel);
         }
     }
 }
