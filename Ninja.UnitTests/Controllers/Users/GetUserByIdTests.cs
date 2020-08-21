@@ -7,21 +7,23 @@ using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using MediatR;
+using Ninja.Application.Common;
+using Ninja.Application.Users.Queries;
 
 namespace Ninja.Api.UnitTests.Controllers.Users
 {
-
     [TestFixture]
     public class GetUserByIdTests
     {
-        private Mock<IUsersService> _service;
+        private Mock<IMediator> _mediator;
         private UserController _controller;
 
         [SetUp]
         public void SetUp()
         {
-            _service = new Mock<IUsersService>();            
-            _controller = new UserController(_service.Object);
+            _mediator = new Mock<IMediator>();
+            _controller = new UserController(_mediator.Object);
         }
 
         public UserVm GetUserResponse()
@@ -33,25 +35,27 @@ namespace Ninja.Api.UnitTests.Controllers.Users
                 Name = "Max"
             };
         }
+
         [Test]
         [TestCase(1)]
         public void GetUserById_Successfully(int id)
         {
-            _service.Setup(m => m.GetUserById(It.IsAny<int>())).Returns(GetUserResponse());
+            _mediator.Setup(m => m.Send(It.IsAny<GetUserByIdQuery>(), default))
+                .ReturnsAsync(Response.Ok200<UserVm>(GetUserResponse()));
 
             var result = _controller.Get(id);
-            var objectResult = (ObjectResult)result.Result;
-            var user = (UserVm)objectResult.Value;
+            var objectResult = (ObjectResult) result.Result.Result;
+            var user = (Response<UserVm>) objectResult.Value;
 
-            Assert.IsInstanceOf<UserVm>(user);
-            Assert.AreEqual(1, user.Id);
+            Assert.IsInstanceOf<Response<UserVm>>(user);
+            Assert.AreEqual(1, user.Data.Id);
         }
 
         [Test]
         [TestCase(1)]
         public void GetUserById_ThrowsException(int id)
         {
-            _service.Setup(m => m.GetUserById(It.IsAny<int>())).Throws(new Exception());
+            _mediator.Setup(m => m.Send(It.IsAny<GetUserByIdQuery>(), default)).Throws(new Exception());
 
             Assert.That(() => _controller.Get(id), Throws.TypeOf<Exception>());
         }
