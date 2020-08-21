@@ -23,6 +23,10 @@ namespace Ninja.Api.Controllers
             _mediator = mediator;
         }
 
+        /// <summary>
+        /// Method that retrieves the entire list of users
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public async Task<ActionResult<Response<List<UserVm>>>> Get()
         {
@@ -30,6 +34,11 @@ namespace Ninja.Api.Controllers
             return StatusCode(result.StatusCode, result);
         }
 
+        /// <summary>
+        /// Method that retrieves only 1 user by Id
+        /// </summary>
+        /// <param name="id">User Identifier</param>
+        /// <returns></returns>
         [HttpGet("{id}")]
         public async Task<ActionResult<Response<UserVm>>> Get(int id)
         {
@@ -44,10 +53,17 @@ namespace Ninja.Api.Controllers
             return StatusCode(result.StatusCode, result);
         }
 
-        //[HttpPut("{id}")]
-        //public ActionResult<UserVm> Put(int id, [FromBody] UserVm user)
-        //{
-        //    return Ok(_userServiceRespository.UpdateUser(id, user));
-        //}
+        /// <summary>
+        /// Method for update an user record 
+        /// </summary>
+        /// <param name="id">User Identifier</param>
+        /// <param name="user">New user info like Name or Email</param>
+        /// <returns></returns>
+        [HttpPut("{id}")]
+        public async Task<ActionResult<UserVm>> Put(int id, [FromBody] UserVm user)
+        {
+            var result = await _mediator.Send(new UpdateUserByIdCommand(id,user));
+            return StatusCode(result.StatusCode, result);
+        }
     }
 }
