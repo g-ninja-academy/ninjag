@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.Json.Serialization;
 
 namespace Ninja.Application.Common
 {
@@ -13,6 +14,7 @@ namespace Ninja.Application.Common
         }
         public string Message { get; set; }
 
+        [JsonIgnore]
         public bool Success { get; set; }
     }
 }

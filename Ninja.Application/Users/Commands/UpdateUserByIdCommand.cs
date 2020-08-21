@@ -10,8 +10,8 @@ namespace Ninja.Application.Users.Commands
     public class UpdateUserByIdCommand : IRequest<Response<UserVm>>
     {
         public readonly int Id;
-        public readonly UserVm User;
-        public UpdateUserByIdCommand(int id, UserVm user)
+        public readonly BasicUserVm User;
+        public UpdateUserByIdCommand(int id, BasicUserVm user)
         {
             Id = id;
             User = user;

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Ninja.Application.Common;
 using Ninja.Application.Common.Models;
@@ -28,6 +29,7 @@ namespace Ninja.Api.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<Response<List<UserVm>>>> Get()
         {
             var result = await _mediator.Send(new GetAllUsersQuery());
@@ -40,6 +42,8 @@ namespace Ninja.Api.Controllers
         /// <param name="id">User Identifier</param>
         /// <returns></returns>
         [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<Response<UserVm>>> Get(int id)
         {
             var result = await _mediator.Send(new GetUserByIdQuery(id));
@@ -47,6 +51,7 @@ namespace Ninja.Api.Controllers
         }
 
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<UserVm>> Post([FromBody] UserVm user)
         {
             var result = await _mediator.Send(new AddUserCommand() { UserViewModel = user });
@@ -60,7 +65,9 @@ namespace Ninja.Api.Controllers
         /// <param name="user">New user info like Name or Email</param>
         /// <returns></returns>
         [HttpPut("{id}")]
-        public async Task<ActionResult<UserVm>> Put(int id, [FromBody] UserVm user)
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<UserVm>> Put(int id, [FromBody] BasicUserVm user)
         {
             var result = await _mediator.Send(new UpdateUserByIdCommand(id,user));
             return StatusCode(result.StatusCode, result);
