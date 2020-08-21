@@ -12,9 +12,9 @@ namespace Ninja.Application.Common.Handlers.Queries
 {
     public class GetAllUsersQueryHandler : IRequestHandler<GetAllUsersQuery, Response<IEnumerable<UserVm>>>
     {
-        private readonly IUserServiceRepository _userServiceRespository;
+        private readonly IUsersService _userServiceRespository;
 
-        public GetAllUsersQueryHandler(IUserServiceRepository userServiceRespository)
+        public GetAllUsersQueryHandler(IUsersService userServiceRespository)
         {
             _userServiceRespository = userServiceRespository;
         }

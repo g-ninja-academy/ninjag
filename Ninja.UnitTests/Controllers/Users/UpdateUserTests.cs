@@ -11,13 +11,13 @@ namespace Ninja.Api.UnitTests.Controllers.Users
     [TestFixture]
     public class UpdateUserTests
     {
-        private Mock<IUserServiceRepository> _service;
+        private Mock<IUsersService> _service;
         private UserController _controller;
 
         [SetUp]
         public void SetUp()
         {
-            _service = new Mock<IUserServiceRepository>();
+            _service = new Mock<IUsersService>();
             _controller = new UserController(_service.Object);
         }
 

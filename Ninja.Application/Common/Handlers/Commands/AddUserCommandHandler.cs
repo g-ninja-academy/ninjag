@@ -12,9 +12,9 @@ namespace Ninja.Application.Common.Handlers.Commands
 {
     public class AddUserCommandHandler : IRequestHandler<AddUserCommand, Response<UserVm>>
     {
-        public readonly IUserServiceRepository _userServiceRespository;
+        public readonly IUsersService _userServiceRespository;
 
-        public AddUserCommandHandler(IUserServiceRepository userServiceRespository)
+        public AddUserCommandHandler(IUsersService userServiceRespository)
         {
             _userServiceRespository = userServiceRespository;
         }

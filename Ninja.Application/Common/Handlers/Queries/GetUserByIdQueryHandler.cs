@@ -12,9 +12,9 @@ namespace Ninja.Application.Common.Handlers.Queries
 {
     public class GetUserByIdQueryHandler : IRequestHandler<GetUserByIdQuery, Response<UserVm>>
     {
-        private readonly IUserServiceRepository _userServiceRepository;
+        private readonly IUsersService _userServiceRepository;
 
-        public GetUserByIdQueryHandler(IUserServiceRepository userServiceRepository)
+        public GetUserByIdQueryHandler(IUsersService userServiceRepository)
         {
             _userServiceRepository = userServiceRepository;
         }

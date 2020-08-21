@@ -24,7 +24,7 @@ namespace Ninja.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddScoped<IUserServiceRepository, UserService>();
+            services.AddScoped<IUsersService, UsersService>();
             services.AddSingleton<ILoggin, Loggin>();
 
             services.AddMediatR(typeof(GetAllUsersQuery));

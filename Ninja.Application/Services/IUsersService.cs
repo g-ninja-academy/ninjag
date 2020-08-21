@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Ninja.Application.Services
 {
-    public interface IUserServiceRepository
+    public interface IUsersService
     {
         IEnumerable<UserVm> GetUsers();
         UserVm GetUserById(int id);

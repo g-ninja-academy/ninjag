@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Ninja.Application.Services
 {
-    public class UserService : IUserServiceRepository
+    public class UsersService : IUsersService
     {
         private static readonly List<UserVm> _users = new List<UserVm>();
 
