@@ -17,13 +17,7 @@ namespace Ninja.Api.Controllers
     public class UserController : ControllerBase
     {
         private readonly IMediator _mediator;
-        //public readonly IUserServiceRepository _userServiceRespository;
-
-        //public UserController(IUserServiceRepository userServiceRespository)
-        //{
-        //    _userServiceRespository = userServiceRespository;
-        //}
-
+       
         public UserController(IMediator mediator)
         {
             _mediator = mediator;

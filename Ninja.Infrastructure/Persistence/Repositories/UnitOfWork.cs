@@ -6,7 +6,7 @@ using Ninja.Domain.Entities.UserModel;
 
 namespace Ninja.Infrastructure.Persistence.Repositories
 {
-    class UnitOfWork : IUnitOfWork
+    public class UnitOfWork : IUnitOfWork
     {
         public List<User> users { get; set; }
 

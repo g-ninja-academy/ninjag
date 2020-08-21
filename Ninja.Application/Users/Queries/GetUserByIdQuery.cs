@@ -9,11 +9,11 @@ namespace Ninja.Application.Users.Queries
 {
     public class GetUserByIdQuery : IRequest<Response<UserVm>>
     {
-        public readonly int _userId;
+        public int UserId { get; }
 
         public GetUserByIdQuery(int userId)
         {
-            _userId = userId;
+            UserId = userId;
         }
     }
 }

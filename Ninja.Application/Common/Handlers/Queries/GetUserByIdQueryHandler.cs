@@ -4,6 +4,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
+using Ninja.Application.Common.Interfaces;
 using Ninja.Application.Common.Models;
 using Ninja.Application.Services;
 using Ninja.Application.Users.Queries;
@@ -12,16 +13,23 @@ namespace Ninja.Application.Common.Handlers.Queries
 {
     public class GetUserByIdQueryHandler : IRequestHandler<GetUserByIdQuery, Response<UserVm>>
     {
-        private readonly IUsersService _userServiceRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public GetUserByIdQueryHandler(IUsersService userServiceRepository)
+        public GetUserByIdQueryHandler(IUnitOfWork unitOfWork)
         {
-            _userServiceRepository = userServiceRepository;
+            _unitOfWork = unitOfWork;
         }
 
         public async Task<Response<UserVm>> Handle(GetUserByIdQuery request, CancellationToken cancellationToken)
         {
-            return Response.Ok200(_userServiceRepository.GetUserById(request._userId));
+            var user =_unitOfWork.Users.FindSingle(x => x.UserId == request.UserId);
+
+            return Response.Ok200(new UserVm
+            {
+                Id = user.UserId,
+                Name = user.Name,
+                Email = user.Email
+            });
         }
     }
 }

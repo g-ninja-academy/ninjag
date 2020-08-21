@@ -8,6 +8,7 @@ using Ninja.Application.Common.Interfaces;
 using Ninja.Application.Middlewares;
 using Ninja.Application.Services;
 using Ninja.Application.Users.Queries;
+using Ninja.Infrastructure.Persistence.Repositories;
 
 namespace Ninja.Api
 {
@@ -24,8 +25,8 @@ namespace Ninja.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddScoped<IUsersService, UsersService>();
             services.AddSingleton<ILoggin, Loggin>();
+            services.AddSingleton<IUnitOfWork , UnitOfWork>();
 
             services.AddMediatR(typeof(GetAllUsersQuery));
         }
