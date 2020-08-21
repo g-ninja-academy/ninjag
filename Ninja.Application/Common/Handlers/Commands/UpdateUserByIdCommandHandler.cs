@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Ninja.Application.Common.Interfaces;
 using Ninja.Application.Common.Models;
 using Ninja.Application.Services;
 using Ninja.Application.Users.Commands;
@@ -12,15 +13,25 @@ namespace Ninja.Application.Common.Handlers.Commands
 {
     public class UpdateUserByIdCommandHandler : IRequestHandler<UpdateUserByIdCommand, Response<UserVm>>
     {
-        public readonly IUserServiceRepository _userServiceRespository;
+        public readonly IUnitOfWork _unitOfWork;
 
-        public UpdateUserByIdCommandHandler(IUserServiceRepository userServiceRespository)
+        public UpdateUserByIdCommandHandler(IUnitOfWork unitOfWork)
         {
-            _userServiceRespository = userServiceRespository;
+            _unitOfWork = unitOfWork;
         }
         public async Task<Response<UserVm>> Handle(UpdateUserByIdCommand request, CancellationToken cancellationToken)
         {
-            return Response.Ok200(_userServiceRespository.UpdateUser(request.Id, request.User));
+            var user = _unitOfWork.Users.FindSingle(x => x.UserId == request.Id);
+
+            if (user == null)
+            {
+                return Response.Fail404NotFound<UserVm>("User Not Found");
+            }
+
+            user.Email = request.User.Email;
+            user.Name = request.User.Name;
+
+            return Response.Ok200(new UserVm() { Id = user.UserId, Name = user.Name, Email = user.Email });
         }
     }
 }

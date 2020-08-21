@@ -10,7 +10,6 @@ namespace Ninja.Infrastructure.Persistence.Repositories
 {
     public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     {
-        //private readonly UsersService _service;
         private List<TEntity> DbSet { get; set; }
 
         public Repository(List<TEntity> entities)
