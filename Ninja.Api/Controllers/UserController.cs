@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Ninja.Application.Common;
 using Ninja.Application.Common.Models;
 using Ninja.Application.Services;
+using Ninja.Application.Users.Commands;
 using Ninja.Application.Users.Queries;
 
 namespace Ninja.Api.Controllers
@@ -42,11 +43,12 @@ namespace Ninja.Api.Controllers
             return StatusCode(result.StatusCode, result);
         }
 
-        //[HttpPost]
-        //public ActionResult<UserVm> Post([FromBody] UserVm user)
-        //{
-        //    return Ok(_userServiceRespository.CreateUser(user));
-        //}
+        [HttpPost]
+        public async Task<ActionResult<UserVm>> Post([FromBody] UserVm user)
+        {
+            var result = await _mediator.Send(new AddUserCommand() { UserViewModel = user });
+            return StatusCode(result.StatusCode, result);
+        }
 
         //[HttpPut("{id}")]
         //public ActionResult<UserVm> Put(int id, [FromBody] UserVm user)
