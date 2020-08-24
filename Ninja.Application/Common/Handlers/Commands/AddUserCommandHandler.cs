@@ -23,15 +23,15 @@ namespace Ninja.Application.Common.Handlers.Commands
 
         public async Task<Response<UserVm>> Handle(AddUserCommand request, CancellationToken cancellationToken)
         {
-            User user = new User 
-            { 
-                UserId = request.UserViewModel.Id, 
-                Name = request.UserViewModel.Name, 
-                Email = request.UserViewModel.Email 
+            User user = new User
+            {
+                UserId = request.UserViewModel.Id,
+                Name = request.UserViewModel.Name,
+                Email = request.UserViewModel.Email
             };
 
             _unitOfWork.Users.Add(user);
-            
+
             return Response.Ok200(request.UserViewModel);
         }
     }

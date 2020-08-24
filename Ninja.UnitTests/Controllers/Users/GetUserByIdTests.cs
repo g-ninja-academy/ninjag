@@ -14,7 +14,6 @@ using System.Text;
 
 namespace Ninja.Api.UnitTests.Controllers.Users
 {
-
     [TestFixture]
     public class GetUserByIdTests
     {
@@ -37,22 +36,22 @@ namespace Ninja.Api.UnitTests.Controllers.Users
                 Name = "Max"
             };
         }
+
         [Test]
         [TestCase(1)]
         public void GetUserById_Successfully(int id)
         {
             _mediator.Setup(m => m.Send(It.IsAny<GetUserByIdQuery>(), default))
-               .ReturnsAsync(Response.Ok200(GetUserResponse()));
+                .ReturnsAsync(Response.Ok200(GetUserResponse()));
 
             var result = _controller.Get(id);
-            var objectResult = (ObjectResult)result.Result.Result;
-            var data = (Response<UserVm>)objectResult.Value;
+            var objectResult = (ObjectResult) result.Result.Result;
+            var data = (Response<UserVm>) objectResult.Value;
             var user = data.Data;
 
             Assert.AreEqual(StatusCodes.Status200OK, objectResult.StatusCode);
             Assert.IsInstanceOf<UserVm>(user);
             Assert.AreEqual(1, user.Id);
-
         }
 
         [Test]
@@ -60,13 +59,12 @@ namespace Ninja.Api.UnitTests.Controllers.Users
         public void GetUserById_NotFound(int id)
         {
             _mediator.Setup(m => m.Send(It.IsAny<GetUserByIdQuery>(), default))
-               .ReturnsAsync(Response.Fail404NotFound<UserVm>(""));
+                .ReturnsAsync(Response.Fail404NotFound<UserVm>(""));
 
             var result = _controller.Get(id);
-            var objectResult = (ObjectResult)result.Result.Result;
+            var objectResult = (ObjectResult) result.Result.Result;
 
             Assert.AreEqual(StatusCodes.Status404NotFound, objectResult.StatusCode);
         }
-
     }
 }

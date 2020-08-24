@@ -26,17 +26,17 @@ namespace Ninja.Application.Middlewares
             {
                 await _next(context);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 await HandleException(context, ex);
             }
         }
 
-        private Task HandleException( HttpContext context, Exception exception)
+        private Task HandleException(HttpContext context, Exception exception)
         {
             string message = "";
 
-            switch(exception)
+            switch (exception)
             {
                 case Exception e:
                     _logger.Error(e.Message);
@@ -50,8 +50,7 @@ namespace Ninja.Application.Middlewares
             context.Response.ContentType = MediaTypeNames.Application.Json;
 
             return context.Response.WriteAsync(
-                JsonSerializer.Serialize(new { message = message }));
+                JsonSerializer.Serialize(new {message = message}));
         }
-
     }
 }
