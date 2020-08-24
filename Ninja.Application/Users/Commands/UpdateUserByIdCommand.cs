@@ -11,11 +11,11 @@ namespace Ninja.Application.Users.Commands
     {
         public readonly int Id;
         public readonly BasicUserVm User;
+
         public UpdateUserByIdCommand(int id, BasicUserVm user)
         {
             Id = id;
             User = user;
-
         }
     }
 }

@@ -21,7 +21,8 @@ namespace Ninja.Application.Common.Handlers.Queries
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<Response<IEnumerable<UserVm>>> Handle(GetAllUsersQuery request, CancellationToken cancellationToken)
+        public async Task<Response<IEnumerable<UserVm>>> Handle(GetAllUsersQuery request,
+            CancellationToken cancellationToken)
         {
             List<UserVm> users = new List<UserVm>();
             _unitOfWork.Users.GetAll().ToList().ForEach(x =>

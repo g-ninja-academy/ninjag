@@ -9,8 +9,9 @@ namespace Ninja.Application.UnitTests
 {
     public class BaseUnitOfWorkTests
     {
-        public Mock<IUnitOfWork> UnitOfWorkMock { get;  }
+        public Mock<IUnitOfWork> UnitOfWorkMock { get; }
         public Mock<IRepository<User>> UsersRespositoryMock { get; }
+
         public BaseUnitOfWorkTests()
         {
             UsersRespositoryMock = new Mock<IRepository<User>>();

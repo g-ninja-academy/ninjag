@@ -19,6 +19,7 @@ namespace Ninja.Application.Common.Handlers.Commands
         {
             _unitOfWork = unitOfWork;
         }
+
         public async Task<Response<UserVm>> Handle(UpdateUserByIdCommand request, CancellationToken cancellationToken)
         {
             var user = _unitOfWork.Users.FindSingle(x => x.UserId == request.Id);
@@ -31,7 +32,7 @@ namespace Ninja.Application.Common.Handlers.Commands
             user.Email = request.User.Email;
             user.Name = request.User.Name;
 
-            return Response.Ok200(new UserVm() { Id = user.UserId, Name = user.Name, Email = user.Email });
+            return Response.Ok200(new UserVm() {Id = user.UserId, Name = user.Name, Email = user.Email});
         }
     }
 }
