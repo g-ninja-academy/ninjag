@@ -9,8 +9,9 @@ namespace Ninja.Application.Common
     {
         public static Response<T> Ok200<T>(T data)
         {
-            return new Response<T>(data, "Success",200, true);
+            return new Response<T>(data, "Success", 200, true);
         }
+
         public static Response<T> Fail404NotFound<T>(string message, T data = default)
         {
             return new Response<T>(data, message, 404, false);
@@ -25,8 +26,8 @@ namespace Ninja.Application.Common
             Data = data;
             StatusCode = statusCode;
         }
+
         public T Data { get; set; }
-        [JsonIgnore]
-        public int StatusCode { get; set; }
+        [JsonIgnore] public int StatusCode { get; set; }
     }
 }

@@ -18,7 +18,7 @@ namespace Ninja.Api.Controllers
     public class UserController : ControllerBase
     {
         private readonly IMediator _mediator;
-       
+
         public UserController(IMediator mediator)
         {
             _mediator = mediator;
@@ -54,7 +54,7 @@ namespace Ninja.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<UserVm>> Post([FromBody] UserVm user)
         {
-            var result = await _mediator.Send(new AddUserCommand() { UserViewModel = user });
+            var result = await _mediator.Send(new AddUserCommand() {UserViewModel = user});
             return StatusCode(result.StatusCode, result);
         }
 
@@ -69,7 +69,7 @@ namespace Ninja.Api.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<UserVm>> Put(int id, [FromBody] BasicUserVm user)
         {
-            var result = await _mediator.Send(new UpdateUserByIdCommand(id,user));
+            var result = await _mediator.Send(new UpdateUserByIdCommand(id, user));
             return StatusCode(result.StatusCode, result);
         }
     }

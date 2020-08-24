@@ -12,9 +12,9 @@ namespace Ninja.Application.Common
             Message = message;
             Success = success;
         }
+
         public string Message { get; set; }
 
-        [JsonIgnore]
-        public bool Success { get; set; }
+        [JsonIgnore] public bool Success { get; set; }
     }
 }

@@ -9,6 +9,5 @@ namespace Ninja.Application.Users.Queries
 {
     public class GetAllUsersQuery : IRequest<Response<IEnumerable<UserVm>>>
     {
-
     }
 }

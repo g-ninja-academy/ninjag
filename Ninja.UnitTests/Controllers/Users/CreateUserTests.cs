@@ -34,15 +34,15 @@ namespace Ninja.Api.UnitTests.Controllers.Users
         }
 
         [Test]
-        [TestCase(1,"max@mail.com","Max")]
+        [TestCase(1, "max@mail.com", "Max")]
         public void CreateUser_Successfully(int id, string email, string name)
         {
             _mediator.Setup(m => m.Send(It.IsAny<AddUserCommand>(), default))
-                .ReturnsAsync(Response.Ok200<UserVm>(SetUserResponse()));            
+                .ReturnsAsync(Response.Ok200<UserVm>(SetUserResponse()));
 
             var result = _controller.Post(SetUserResponse());
-            var objectResult = (ObjectResult)result.Result.Result;
-            var user = (Response<UserVm>)objectResult.Value;
+            var objectResult = (ObjectResult) result.Result.Result;
+            var user = (Response<UserVm>) objectResult.Value;
 
             Assert.IsInstanceOf<Response<UserVm>>(user);
             Assert.AreEqual(1, user.Data.Id);
@@ -57,6 +57,5 @@ namespace Ninja.Api.UnitTests.Controllers.Users
 
             Assert.That(() => _controller.Post(SetUserResponse()), Throws.TypeOf<Exception>());
         }
-
     }
 }

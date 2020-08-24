@@ -1,22 +1,22 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using System;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using Moq;
 using Ninja.Application.Common;
 using Ninja.Application.Common.Handlers.Queries;
 using Ninja.Application.Common.Models;
 using Ninja.Application.Users.Queries;
-using NUnit.Framework;
-using System.Threading.Tasks;
-using Moq;
 using Ninja.Domain.Entities.UserModel;
-using System;
+using NUnit.Framework;
 
-namespace Ninja.Application.UnitTests.QueriesTests
+namespace Ninja.Application.UnitTests.HandlersTests.QueriesTests.UsersTests
 {
     [TestFixture]
-    public class GetUserByIdHandlerTests: BaseUnitOfWorkTests
+    public class GetUserByIdHandlerTests : BaseUnitOfWorkTests
     {
         [Test]
         [TestCase(1)]
-        public void GetUserById_Successfully(int id) 
+        public void GetUserById_Successfully(int id)
         {
             base.UsersRespositoryMock.Setup(x => x.FindSingle(It.IsAny<Predicate<User>>())).Returns(new User
             {
@@ -36,7 +36,7 @@ namespace Ninja.Application.UnitTests.QueriesTests
 
         [Test]
         [TestCase(1)]
-        public void GetUserById_NotFound(int id) 
+        public void GetUserById_NotFound(int id)
         {
             base.UsersRespositoryMock.Setup(x => x.FindSingle(It.IsAny<Predicate<User>>())).Returns(value: default);
 

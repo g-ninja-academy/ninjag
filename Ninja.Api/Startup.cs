@@ -30,26 +30,26 @@ namespace Ninja.Api
         {
             services.AddControllers();
             services.AddSingleton<ILoggin, Loggin>();
-            services.AddSingleton<IUnitOfWork , UnitOfWork>();
+            services.AddSingleton<IUnitOfWork, UnitOfWork>();
 
             services.AddMediatR(typeof(GetAllUsersQuery));
 
             services.AddSwaggerGen(
                 config =>
-                config.SwaggerDoc(
-                    "NinjaAPI",
-                    new Microsoft.OpenApi.Models.OpenApiInfo()
-                    {
-                        Title = "Controllers Info"
-                    })
-                );
+                    config.SwaggerDoc(
+                        "NinjaAPI",
+                        new Microsoft.OpenApi.Models.OpenApiInfo()
+                        {
+                            Title = "Controllers Info"
+                        })
+            );
 
             string basePath = hostingEnvironment.ContentRootPath;
 
             services.AddSwaggerGen(
                 config =>
-                config.IncludeXmlComments(Path.Combine(basePath, "Ninja.Api.xml"))
-                );
+                    config.IncludeXmlComments(Path.Combine(basePath, "Ninja.Api.xml"))
+            );
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -67,17 +67,14 @@ namespace Ninja.Api
 
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
+            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
 
             //Swagger Config
             app.UseSwagger();
             app.UseSwaggerUI(
                 config =>
-                config.SwaggerEndpoint("/swagger/NinjaAPI/swagger.json", "API de control de Usuarios")
-                );
+                    config.SwaggerEndpoint("/swagger/NinjaAPI/swagger.json", "API de control de Usuarios")
+            );
         }
     }
 }
