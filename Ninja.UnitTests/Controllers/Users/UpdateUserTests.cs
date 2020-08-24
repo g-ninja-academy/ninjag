@@ -7,6 +7,7 @@ using NUnit.Framework;
 using System;
 using MediatR;
 using Ninja.Application.Common;
+using Microsoft.AspNetCore.Http;
 
 namespace Ninja.Api.UnitTests.Controllers.Users
 {
@@ -50,8 +51,21 @@ namespace Ninja.Api.UnitTests.Controllers.Users
             var objectResult = (ObjectResult)result.Result.Result;
             var user = (Response<UserVm>)objectResult.Value;
 
+            Assert.AreEqual(StatusCodes.Status200OK, objectResult.StatusCode);
             Assert.IsInstanceOf<Response<UserVm>>(user);
             Assert.AreEqual(1, user.Data.Id);
+        }
+        [Test]
+        [TestCase(1)]
+        public void UpdateUserById_NotFound(int id)
+        {
+            _mediator.Setup(m => m.Send(It.IsAny<UpdateUserByIdCommand>(), default))
+                .ReturnsAsync(Response.Fail404NotFound<UserVm>(""));
+
+            var result = _controller.Put(id, SetBasicUserResponse());
+            var objectResult = (ObjectResult)result.Result.Result;
+
+            Assert.AreEqual(StatusCodes.Status404NotFound, objectResult.StatusCode);
         }
         [Test]
         [TestCase(1)]
