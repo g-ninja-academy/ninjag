@@ -1,18 +1,20 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using MediatR;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Ninja.Api.Controllers;
+using Ninja.Application.Common;
 using Ninja.Application.Common.Models;
 using Ninja.Application.Services;
+using Ninja.Application.Users.Queries;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using MediatR;
-using Ninja.Application.Common;
-using Ninja.Application.Users.Queries;
 
 namespace Ninja.Api.UnitTests.Controllers.Users
 {
+
     [TestFixture]
     public class GetUserByIdTests
     {
@@ -35,29 +37,36 @@ namespace Ninja.Api.UnitTests.Controllers.Users
                 Name = "Max"
             };
         }
-
         [Test]
         [TestCase(1)]
         public void GetUserById_Successfully(int id)
         {
             _mediator.Setup(m => m.Send(It.IsAny<GetUserByIdQuery>(), default))
-                .ReturnsAsync(Response.Ok200<UserVm>(GetUserResponse()));
+               .ReturnsAsync(Response.Ok200(GetUserResponse()));
 
             var result = _controller.Get(id);
-            var objectResult = (ObjectResult) result.Result.Result;
-            var user = (Response<UserVm>) objectResult.Value;
+            var objectResult = (ObjectResult)result.Result.Result;
+            var data = (Response<UserVm>)objectResult.Value;
+            var user = data.Data;
 
-            Assert.IsInstanceOf<Response<UserVm>>(user);
-            Assert.AreEqual(1, user.Data.Id);
+            Assert.AreEqual(StatusCodes.Status200OK, objectResult.StatusCode);
+            Assert.IsInstanceOf<UserVm>(user);
+            Assert.AreEqual(1, user.Id);
+
         }
 
         [Test]
         [TestCase(1)]
-        public void GetUserById_ThrowsException(int id)
+        public void GetUserById_NotFound(int id)
         {
-            _mediator.Setup(m => m.Send(It.IsAny<GetUserByIdQuery>(), default)).Throws(new Exception());
+            _mediator.Setup(m => m.Send(It.IsAny<GetUserByIdQuery>(), default))
+               .ReturnsAsync(Response.Fail404NotFound<UserVm>(""));
 
-            Assert.That(() => _controller.Get(id), Throws.TypeOf<Exception>());
+            var result = _controller.Get(id);
+            var objectResult = (ObjectResult)result.Result.Result;
+
+            Assert.AreEqual(StatusCodes.Status404NotFound, objectResult.StatusCode);
         }
+
     }
 }
