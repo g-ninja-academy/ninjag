@@ -3,56 +3,72 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
+using System.Threading.Tasks;
+using Microsoft.Extensions.Options;
+using MongoDB.Driver;
 using Ninja.Application.Common.Interfaces;
 using Ninja.Application.Services;
+using Ninja.Infrastructure.Persistence.Common;
 
 namespace Ninja.Infrastructure.Persistence.Repositories
 {
     public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     {
-        private List<TEntity> DbSet { get; set; }
+        private readonly NinjaDatabaseSettings dbSettings;
+        private readonly IMongoDatabase _db;
+        private readonly IMongoCollection<TEntity> _collection;
 
-        public Repository(List<TEntity> entities)
+        public Repository(IOptions<NinjaDatabaseSettings> settings)
         {
-            DbSet = entities;
+            dbSettings = settings.Value;
+
+            var client = new MongoClient(dbSettings.ConnectionString);
+            _db = client.GetDatabase(dbSettings.DatabaseName);
+
+            _collection = _db.GetCollection<TEntity>(GetCollectionName(typeof(TEntity)));
+        }
+
+        private protected string GetCollectionName(Type documentType)
+        {
+            return ((BsonCollectionAttribute) documentType.GetCustomAttributes(
+                    typeof(BsonCollectionAttribute),
+                    true)
+                .FirstOrDefault())?.CollectionName;
         }
 
         public IEnumerable<TEntity> GetAll()
         {
-            return DbSet;
+            return _collection.AsQueryable().AsEnumerable();
         }
 
-        public TEntity FindSingle(Predicate<TEntity> predicate)
+        public async Task<TEntity> FindSingle(Expression<Func<TEntity, bool>> predicate)
         {
-            return DbSet.Find(predicate);
+            return await _collection.Find(predicate).FirstOrDefaultAsync();
         }
 
         public IEnumerable<TEntity> SearchBy(Expression<Func<TEntity, bool>> predicate)
         {
-            return DbSet.AsQueryable().Where(predicate).AsEnumerable();
+            return _collection.Find(predicate).ToEnumerable();
         }
 
-        public void Add(TEntity entity)
+        public async Task Add(TEntity entity)
         {
-            DbSet.Add(entity);
+            await _collection.InsertOneAsync(entity);
         }
 
-        public void AddRange(IEnumerable<TEntity> entities)
+        public async Task AddRange(IEnumerable<TEntity> entities)
         {
-            DbSet.AddRange(entities);
+            await _collection.InsertManyAsync(entities);
         }
 
-        public void Remove(TEntity entity)
+        public async Task Remove(Expression<Func<TEntity, bool>> predicate)
         {
-            DbSet.Remove(entity);
+            await _collection.FindOneAndDeleteAsync(predicate);
         }
 
-        public void RemoveRange(IEnumerable<TEntity> entities)
+        public async Task RemoveRange(Expression<Func<TEntity, bool>> predicate)
         {
-            foreach (var entity in entities)
-            {
-                DbSet.Remove(entity);
-            }
+            await _collection.DeleteManyAsync(predicate);
         }
     }
 }

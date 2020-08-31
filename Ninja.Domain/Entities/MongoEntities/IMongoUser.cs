@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Ninja.Domain.Entities.MongoEntities;
 
-namespace Ninja.Domain.Entities.UserModel
+namespace Ninja.Domain.Entities.MongoEntities
 {
-    public class User
+    public interface IMongoUser
     {
-        public int UserId { get; set; }
+        public int Id { get; set; }
         public string Email { get; set; }
         public string Name { get; set; }
     }

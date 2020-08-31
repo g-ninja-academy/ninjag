@@ -1,26 +1,35 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.Extensions.Options;
+using MongoDB.Driver;
 using Ninja.Application.Common.Interfaces;
-using Ninja.Domain.Entities.UserModel;
+using Ninja.Domain.Entities.MongoEntities;
+using Ninja.Infrastructure.Persistence.Models.Users;
 
 namespace Ninja.Infrastructure.Persistence.Repositories
 {
     public class UnitOfWork : IUnitOfWork
     {
-        public List<User> users { get; set; }
+        public IMongoCollection<MongoUser> users { get; set; }
 
-        public UnitOfWork()
+        public UnitOfWork(IOptions<NinjaDatabaseSettings> settings)
         {
-            users = new List<User>();
-            Users = new Repository<User>(users);
+            Users = new Repository<MongoUser>(settings);
         }
 
-        public IRepository<User> Users { get; }
+        public IRepository<MongoUser> Users { get; }
 
-        public bool Complete()
+        IRepository<IMongoUser> IUnitOfWork.Users
         {
-            return true;
+            get { return Users; }
         }
-    }
+    };
+
+    public bool Complete()
+    {
+    return true;
+}
+
+}
 }
