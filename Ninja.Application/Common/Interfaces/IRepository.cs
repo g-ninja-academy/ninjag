@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using MongoDB.Driver;
 
 namespace Ninja.Application.Common.Interfaces
 {
@@ -14,6 +15,8 @@ namespace Ninja.Application.Common.Interfaces
 
         Task Add(TEntity entity);
         Task AddRange(IEnumerable<TEntity> entities);
+
+        Task<TEntity> Update(Expression<Func<TEntity, bool>> predicate, TEntity entity);
 
         Task Remove(Expression<Func<TEntity, bool>> predicate);
         Task RemoveRange(Expression<Func<TEntity, bool>> predicate);

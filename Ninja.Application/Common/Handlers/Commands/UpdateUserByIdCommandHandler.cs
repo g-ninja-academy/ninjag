@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Ninja.Domain.Entities.UserModel;
 
 namespace Ninja.Application.Common.Handlers.Commands
 {
@@ -22,7 +23,9 @@ namespace Ninja.Application.Common.Handlers.Commands
 
         public async Task<Response<UserVm>> Handle(UpdateUserByIdCommand request, CancellationToken cancellationToken)
         {
-            var user = await _unitOfWork.Users.FindSingle(x => x.UserId == request.Id);
+            var userToUpdate = new User() {Email = request.User.Email, Name = request.User.Name, Id = request.Id};
+
+            var user = await _unitOfWork.Users.Update(x => x.Id == request.Id, userToUpdate);
 
             if (user == null)
             {
@@ -32,7 +35,7 @@ namespace Ninja.Application.Common.Handlers.Commands
             user.Email = request.User.Email;
             user.Name = request.User.Name;
 
-            return Response.Ok200(new UserVm() {Id = user.UserId, Name = user.Name, Email = user.Email});
+            return Response.Ok200(new UserVm() {Id = user.Id, Name = user.Name, Email = user.Email});
         }
     }
 }
