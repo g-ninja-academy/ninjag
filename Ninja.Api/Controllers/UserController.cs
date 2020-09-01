@@ -44,7 +44,7 @@ namespace Ninja.Api.Controllers
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<Response<UserVm>>> Get(int id)
+        public async Task<ActionResult<Response<UserVm>>> Get(Guid id)
         {
             var result = await _mediator.Send(new GetUserByIdQuery(id));
             return StatusCode(result.StatusCode, result);
@@ -67,7 +67,7 @@ namespace Ninja.Api.Controllers
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<UserVm>> Put(int id, [FromBody] BasicUserVm user)
+        public async Task<ActionResult<UserVm>> Put(Guid id, [FromBody] BasicUserVm user)
         {
             var result = await _mediator.Send(new UpdateUserByIdCommand(id, user));
             return StatusCode(result.StatusCode, result);

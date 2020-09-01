@@ -12,6 +12,7 @@ using Ninja.Application.Users.Queries;
 using System.IO;
 using Microsoft.Extensions.Options;
 using Ninja.Infrastructure;
+using Ninja.Infrastructure.Persistence.Common;
 using Ninja.Infrastructure.Persistence.Repositories;
 
 namespace Ninja.Api
@@ -30,11 +31,9 @@ namespace Ninja.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.Configure<NinjaDatabaseSettings>(
-            //    Configuration.GetSection(nameof(NinjagDatabaseSettings)));
+            MongoMap.Configure();
 
-            //services.AddSingleton<INinjaDatabaseSettings>(sp =>
-            //    sp.GetRequiredService<IOptions<NinjaDatabaseSettings>>().Value);
+            services.Configure<NinjaDatabaseSettings>(Configuration.GetSection("NinjaDatabaseSettings"));
 
             services.AddControllers();
             services.AddSingleton<ILoggin, Loggin>();

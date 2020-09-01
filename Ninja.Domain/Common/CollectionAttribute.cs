@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Ninja.Infrastructure.Persistence.Common
+namespace Ninja.Domain.Common
 {
     [AttributeUsage(AttributeTargets.Class, Inherited = false)]
-    public class BsonCollectionAttribute : Attribute
+    public class CollectionAttribute : Attribute
     {
         public string CollectionName { get; }
 
-        public BsonCollectionAttribute(string collectionName)
+        public CollectionAttribute(string collectionName)
         {
             CollectionName = collectionName;
         }

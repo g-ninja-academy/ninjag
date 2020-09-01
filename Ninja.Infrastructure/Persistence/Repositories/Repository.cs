@@ -8,7 +8,7 @@ using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using Ninja.Application.Common.Interfaces;
 using Ninja.Application.Services;
-using Ninja.Infrastructure.Persistence.Common;
+using Ninja.Domain.Common;
 
 namespace Ninja.Infrastructure.Persistence.Repositories
 {
@@ -30,8 +30,8 @@ namespace Ninja.Infrastructure.Persistence.Repositories
 
         private protected string GetCollectionName(Type documentType)
         {
-            return ((BsonCollectionAttribute) documentType.GetCustomAttributes(
-                    typeof(BsonCollectionAttribute),
+            return ((CollectionAttribute) documentType.GetCustomAttributes(
+                    typeof(CollectionAttribute),
                     true)
                 .FirstOrDefault())?.CollectionName;
         }

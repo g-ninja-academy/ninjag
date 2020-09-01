@@ -22,7 +22,7 @@ namespace Ninja.Application.Common.Handlers.Commands
 
         public async Task<Response<UserVm>> Handle(UpdateUserByIdCommand request, CancellationToken cancellationToken)
         {
-            var user = _unitOfWork.Users.FindSingle(x => x.UserId == request.Id);
+            var user = await _unitOfWork.Users.FindSingle(x => x.UserId == request.Id);
 
             if (user == null)
             {

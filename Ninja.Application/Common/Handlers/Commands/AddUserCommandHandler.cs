@@ -9,7 +9,6 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Ninja.Domain.Entities.MongoEntities;
 
 namespace Ninja.Application.Common.Handlers.Commands
 {
@@ -17,7 +16,7 @@ namespace Ninja.Application.Common.Handlers.Commands
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public AddUserCommandHandler(IRepository<IMongoUser> repository)
+        public AddUserCommandHandler(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
