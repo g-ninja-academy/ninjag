@@ -52,7 +52,7 @@ namespace Ninja.Api.Controllers
 
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<UserVm>> Post([FromBody] UserVm user)
+        public async Task<ActionResult<UserVm>> Post([FromBody] BasicUserVm user)
         {
             var result = await _mediator.Send(new AddUserCommand() {UserViewModel = user});
             return StatusCode(result.StatusCode, result);
@@ -70,6 +70,19 @@ namespace Ninja.Api.Controllers
         public async Task<ActionResult<UserVm>> Put(Guid id, [FromBody] BasicUserVm user)
         {
             var result = await _mediator.Send(new UpdateUserByIdCommand(id, user));
+            return StatusCode(result.StatusCode, result);
+        }
+        /// <summary>
+        /// Method that delete only 1 user by Id
+        /// </summary>
+        /// <param name="id">User Identifier</param>
+        /// <returns></returns>
+        [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<Response<UserVm>>> Delete(Guid id)
+        {
+            var result = await _mediator.Send(new DeleteUserByIdCommand(id)); ;
             return StatusCode(result.StatusCode, result);
         }
     }

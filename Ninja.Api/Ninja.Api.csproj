@@ -33,5 +33,11 @@
     <ProjectReference Include="..\Ninja.Infrastructure\Ninja.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Ninja.Api.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 
 </Project>
