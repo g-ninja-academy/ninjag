@@ -20,14 +20,14 @@ namespace Ninja.Application.Common.Handlers.Commands
 
         public async Task<Response<bool>> Handle(DeleteUserByIdCommand request, CancellationToken cancellationToken)
         {
-            var user = await _unitOfWork.Users.FindSingle(x => x.UserId == request.Id);
+            var user = await _unitOfWork.Users.FindSingle(x => x.Id == request.Id);
 
             if (user == null)
             {
                 return Response.Fail404NotFound<bool>("User Not Found");
             }
 
-            await _unitOfWork.Users.Remove(us=> us.UserId == request.Id);
+            await _unitOfWork.Users.Remove(us=> us.Id == request.Id);
 
             return Response.Ok200<bool>(true);
         }

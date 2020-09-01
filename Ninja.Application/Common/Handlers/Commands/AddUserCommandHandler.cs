@@ -33,7 +33,7 @@ namespace Ninja.Application.Common.Handlers.Commands
 
             UserVm userResult = new UserVm()
             {
-                Id = user.UserId,
+                Id = user.Id,
                 Name = user.Name,
                 Email = user.Email
             };

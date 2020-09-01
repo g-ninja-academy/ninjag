@@ -23,17 +23,19 @@ namespace Ninja.Application.Common.Handlers.Commands
 
         public async Task<Response<UserVm>> Handle(UpdateUserByIdCommand request, CancellationToken cancellationToken)
         {
-            var userToUpdate = new User() {Email = request.User.Email, Name = request.User.Name, Id = request.Id};
-
-            var user = await _unitOfWork.Users.Update(x => x.Id == request.Id, userToUpdate);
+            var user = await _unitOfWork.Users.FindSingle(x => x.Id == request.Id);
 
             if (user == null)
             {
                 return Response.Fail404NotFound<UserVm>("User Not Found");
             }
 
-            user.Email = request.User.Email;
-            user.Name = request.User.Name;
+            var userToUpdate = new User() { Email = request.User.Email, Name = request.User.Name, Id = request.Id };
+
+            var userResult = await _unitOfWork.Users.Update(x => x.Id == request.Id, userToUpdate);
+
+            user.Email = userResult.Email;
+            user.Name = userResult.Name;
 
             return Response.Ok200(new UserVm() {Id = user.Id, Name = user.Name, Email = user.Email});
         }

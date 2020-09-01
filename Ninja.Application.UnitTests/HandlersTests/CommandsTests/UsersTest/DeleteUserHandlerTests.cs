@@ -23,7 +23,7 @@ namespace Ninja.Application.UnitTests.HandlersTests.CommandsTests.UsersTest
 
             base.UsersRespositoryMock.Setup(x => x.FindSingle(It.IsAny<Expression<Func<User, bool>>>())).ReturnsAsync(new User
             {
-                UserId = new Guid("f5d958ec-d760-4abe-bf3e-c8ba12c975e6"),
+                Id = new Guid("f5d958ec-d760-4abe-bf3e-c8ba12c975e6"),
                 Name = "",
                 Email = ""
             });
