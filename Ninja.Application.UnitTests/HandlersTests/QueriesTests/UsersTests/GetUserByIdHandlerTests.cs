@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Moq;
@@ -15,10 +16,10 @@ namespace Ninja.Application.UnitTests.HandlersTests.QueriesTests.UsersTests
     public class GetUserByIdHandlerTests : BaseUnitOfWorkTests
     {
         [Test]
-        [TestCase(1)]
-        public void GetUserById_Successfully(int id)
+        [TestCase("77c92558-832b-4cbe-99d2-f77813ced2e4")]
+        public void GetUserById_Successfully(Guid id)
         {
-            base.UsersRespositoryMock.Setup(x => x.FindSingle(It.IsAny<Predicate<User>>())).Returns(new User
+            base.UsersRespositoryMock.Setup(x => x.FindSingle(It.IsAny<Expression<Func<User, bool>>>())).ReturnsAsync(new User
             {
                 Id = id,
                 Name = "test",
@@ -35,10 +36,10 @@ namespace Ninja.Application.UnitTests.HandlersTests.QueriesTests.UsersTests
         }
 
         [Test]
-        [TestCase(1)]
-        public void GetUserById_NotFound(int id)
+        [TestCase("77c92558-832b-4cbe-99d2-f77813ced2e4")]
+        public void GetUserById_NotFound(Guid id)
         {
-            base.UsersRespositoryMock.Setup(x => x.FindSingle(It.IsAny<Predicate<User>>())).Returns(value: default);
+            base.UsersRespositoryMock.Setup(x => x.FindSingle(It.IsAny<Expression<Func<User, bool>>>())).ReturnsAsync(value: default);
 
             var handler = new GetUserByIdQueryHandler(base.UnitOfWorkMock.Object);
 

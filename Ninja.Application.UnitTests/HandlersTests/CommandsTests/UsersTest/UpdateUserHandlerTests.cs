@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Moq;
@@ -15,12 +16,12 @@ namespace Ninja.Application.UnitTests.HandlersTests.CommandsTests.UsersTest
     public class UpdateUserHandlerTests : BaseUnitOfWorkTests
     {
         [Test]
-        [TestCase(1, "Name", "Email")]
-        public void UpdateUser_Successfully(int id, string name, string email)
+        [TestCase("f5d958ec-d760-4abe-bf3e-c8ba12c975e6", "Name", "Email")]
+        public void UpdateUser_Successfully(Guid id, string name, string email)
         {
-            base.UsersRespositoryMock.Setup(x => x.FindSingle(It.IsAny<Predicate<User>>())).Returns(new User
+            base.UsersRespositoryMock.Setup(x => x.FindSingle(It.IsAny<Expression<Func<User, bool>>>())).ReturnsAsync(new User
             {
-                Id = 1,
+                UserId = new Guid("f5d958ec-d760-4abe-bf3e-c8ba12c975e6"),
                 Name = "",
                 Email = ""
             });
@@ -41,10 +42,10 @@ namespace Ninja.Application.UnitTests.HandlersTests.CommandsTests.UsersTest
         }
 
         [Test]
-        [TestCase(1, "Name", "Email")]
-        public void UpdateUser_NotFound(int id, string name, string email)
+        [TestCase("f5d958ec-d760-4abe-bf3e-c8ba12c975e6", "Name", "Email")]
+        public void UpdateUser_NotFound(Guid id, string name, string email)
         {
-            base.UsersRespositoryMock.Setup(x => x.FindSingle(It.IsAny<Predicate<User>>())).Returns(value: default);
+            base.UsersRespositoryMock.Setup(x => x.FindSingle(It.IsAny<Expression<Func<User, bool>>>())).ReturnsAsync(value: default);
 
             var handler = new UpdateUserByIdCommandHandler(base.UnitOfWorkMock.Object);
 
