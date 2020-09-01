@@ -22,7 +22,7 @@ namespace Ninja.Application.Common.Handlers.Queries
 
         public async Task<Response<UserVm>> Handle(GetUserByIdQuery request, CancellationToken cancellationToken)
         {
-            var user = await _unitOfWork.Users.FindSingle(x => x.UserId == request.UserId);
+            var user = await _unitOfWork.Users.FindSingle(x => x.Id == request.UserId);
             if (user == null)
             {
                 return Response.Fail404NotFound<UserVm>("User Not Found");
@@ -30,7 +30,7 @@ namespace Ninja.Application.Common.Handlers.Queries
 
             return Response.Ok200(new UserVm
             {
-                Id = user.UserId,
+                Id = user.Id,
                 Name = user.Name,
                 Email = user.Email
             });

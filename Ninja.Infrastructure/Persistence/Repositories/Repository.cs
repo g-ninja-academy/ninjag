@@ -61,6 +61,11 @@ namespace Ninja.Infrastructure.Persistence.Repositories
             await _collection.InsertManyAsync(entities);
         }
 
+        public async Task<TEntity> Update(Expression<Func<TEntity, bool>> predicate, TEntity entity)
+        {
+            return await _collection.FindOneAndReplaceAsync(predicate, entity);
+        }
+
         public async Task Remove(Expression<Func<TEntity, bool>> predicate)
         {
             await _collection.FindOneAndDeleteAsync(predicate);

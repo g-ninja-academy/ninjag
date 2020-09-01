@@ -15,7 +15,7 @@ namespace Ninja.Infrastructure.Persistence.Common
             BsonClassMap.RegisterClassMap<User>(cm =>
             {
                 cm.AutoMap();
-                cm.MapIdMember(m => m.UserId).SetIdGenerator(CombGuidGenerator.Instance);
+                cm.MapIdMember(m => m.Id).SetIdGenerator(CombGuidGenerator.Instance);
             });
         }
     }

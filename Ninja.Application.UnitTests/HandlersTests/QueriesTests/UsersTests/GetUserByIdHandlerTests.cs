@@ -20,7 +20,7 @@ namespace Ninja.Application.UnitTests.HandlersTests.QueriesTests.UsersTests
         {
             base.UsersRespositoryMock.Setup(x => x.FindSingle(It.IsAny<Predicate<User>>())).Returns(new User
             {
-                UserId = id,
+                Id = id,
                 Name = "test",
                 Email = "test"
             });
