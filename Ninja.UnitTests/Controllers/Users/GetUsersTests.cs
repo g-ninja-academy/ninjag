@@ -34,7 +34,7 @@ namespace Ninja.Api.UnitTests.Controllers.Users
             {
                 new UserVm()
                 {
-                    Email = "max@globant.com", Id = 1, Name = "Max"
+                    Email = "max@globant.com", Id = new Guid("3bcb1346-7ad9-4137-b5d9-ca36e036aff1"), Name = "Max"
                 }
             };
         }
