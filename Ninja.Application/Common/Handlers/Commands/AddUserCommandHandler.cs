@@ -25,7 +25,7 @@ namespace Ninja.Application.Common.Handlers.Commands
         {
             User user = new User
             {
-                UserId = request.UserViewModel.Id,
+                Id = request.UserViewModel.Id,
                 Name = request.UserViewModel.Name,
                 Email = request.UserViewModel.Email
             };

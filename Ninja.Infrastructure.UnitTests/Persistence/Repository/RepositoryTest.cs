@@ -16,7 +16,7 @@ namespace Ninja.Infrastructure.UnitTests.Persistence.Repository
         [SetUp]
         public void SetUp()
         {
-            users.Add(new User() {UserId = 1, Email = "roberto@globant.com", Name = "Roberto"});
+            users.Add(new User() {Id = 1, Email = "roberto@globant.com", Name = "Roberto"});
             repository = new Repository<User>(users);
         }
 
@@ -31,7 +31,7 @@ namespace Ninja.Infrastructure.UnitTests.Persistence.Repository
         [Test]
         public void FindSingle_WhenCalled_ReturnObject()
         {
-            var result = repository.FindSingle(user => user.UserId == 1);
+            var result = repository.FindSingle(user => user.Id == 1);
 
             Assert.IsInstanceOf<User>(result);
         }

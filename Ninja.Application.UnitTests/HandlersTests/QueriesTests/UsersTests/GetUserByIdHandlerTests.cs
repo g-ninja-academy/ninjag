@@ -21,7 +21,7 @@ namespace Ninja.Application.UnitTests.HandlersTests.QueriesTests.UsersTests
         {
             base.UsersRespositoryMock.Setup(x => x.FindSingle(It.IsAny<Expression<Func<User, bool>>>())).ReturnsAsync(new User
             {
-                UserId = id,
+                Id = id,
                 Name = "test",
                 Email = "test"
             });
