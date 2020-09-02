@@ -1,6 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
+using Microsoft.Extensions.Options;
+using Moq;
+using Ninja.Application.Common.Interfaces;
 using Ninja.Domain.Entities.UserModel;
 using Ninja.Infrastructure.Persistence.Repositories;
 using NUnit.Framework;
@@ -10,20 +14,18 @@ namespace Ninja.Infrastructure.UnitTests.Persistence.Repository
     [TestFixture]
     class RepositoryTest
     {
-        private List<User> users = new List<User>();
-        private Repository<User> repository;
+        private Mock<IRepository<User>> repository;
 
         [SetUp]
         public void SetUp()
         {
-            users.Add(new User() {Id = 1, Email = "roberto@globant.com", Name = "Roberto"});
-            repository = new Repository<User>(users);
+            repository = new Mock<IRepository<User>>();
         }
 
         [Test]
         public void GetAll_WhenCalled_ReturnIEnumerable()
         {
-            var result = repository.GetAll();
+            var result = repository.Object.GetAll();
 
             Assert.IsInstanceOf<IEnumerable<User>>(result);
         }
@@ -31,15 +33,18 @@ namespace Ninja.Infrastructure.UnitTests.Persistence.Repository
         [Test]
         public void FindSingle_WhenCalled_ReturnObject()
         {
-            var result = repository.FindSingle(user => user.Id == 1);
+            repository.Object.Add(new User() { Email = "emmanuel@globant.com", Name = "emmanuel" });
 
-            Assert.IsInstanceOf<User>(result);
+            var result = repository.Object.FindSingle(user => user.Email == "emmanuel@globant.com");
+
+            Assert.IsInstanceOf<Task<User>>(result);
         }
 
         [Test]
         public void SearchBy_WhenCalled_ReturnIEnumerable()
         {
-            var restult = repository.SearchBy(user => user.Name == "Roberto");
+            repository.Object.Add(new User() { Email = "emmanuel@globant.com", Name = "emmanuel" });
+            var restult = repository.Object.SearchBy(user => user.Name == "emmanuel");
 
             Assert.IsInstanceOf<IEnumerable<User>>(restult);
         }
