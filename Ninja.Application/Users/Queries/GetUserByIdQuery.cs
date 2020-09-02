@@ -9,9 +9,9 @@ namespace Ninja.Application.Users.Queries
 {
     public class GetUserByIdQuery : IRequest<Response<UserVm>>
     {
-        public int UserId { get; }
+        public Guid UserId { get; }
 
-        public GetUserByIdQuery(int userId)
+        public GetUserByIdQuery(Guid userId)
         {
             UserId = userId;
         }

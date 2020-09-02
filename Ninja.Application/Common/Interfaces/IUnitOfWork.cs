@@ -8,6 +8,5 @@ namespace Ninja.Application.Common.Interfaces
     public interface IUnitOfWork
     {
         IRepository<User> Users { get; }
-        bool Complete();
     }
 }

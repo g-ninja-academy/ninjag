@@ -29,7 +29,7 @@ namespace Ninja.Application.Common.Handlers.Queries
             {
                 users.Add(new UserVm
                 {
-                    Id = x.UserId,
+                    Id = x.Id,
                     Email = x.Email,
                     Name = x.Name
                 });
