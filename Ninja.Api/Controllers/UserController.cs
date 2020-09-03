@@ -54,7 +54,7 @@ namespace Ninja.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<UserVm>> Post([FromBody] BasicUserVm user)
         {
-            var result = await _mediator.Send(new AddUserCommand() {UserViewModel = user});
+            var result = await _mediator.Send(new AddUserCommand() {User = user});
             return StatusCode(result.StatusCode, result);
         }
 

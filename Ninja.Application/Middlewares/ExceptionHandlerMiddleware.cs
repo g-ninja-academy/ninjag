@@ -7,6 +7,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using Ninja.Application.Common.Interfaces;
 using FluentValidation;
+using System.Linq;
 
 namespace Ninja.Application.Middlewares
 {
@@ -36,12 +37,14 @@ namespace Ninja.Application.Middlewares
         private Task HandleException(HttpContext context, Exception exception)
         {
             string message = "";
+            object data = null;
 
             switch (exception)
             {
                 case ValidationException validationException:
                     context.Response.StatusCode = StatusCodes.Status400BadRequest;
-                    message = JsonSerializer.Serialize(validationException.Errors);
+                    message = validationException.Message;
+                    data = validationException.Errors.Select(error => new { error.PropertyName, error.ErrorMessage });
                     _logger.Error(message);
                     break;
                 case Exception e:
@@ -56,7 +59,7 @@ namespace Ninja.Application.Middlewares
             context.Response.ContentType = MediaTypeNames.Application.Json;
 
             return context.Response.WriteAsync(
-                JsonSerializer.Serialize(new {message = message}));
+                JsonSerializer.Serialize(new { message, data }));
         }
     }
 }

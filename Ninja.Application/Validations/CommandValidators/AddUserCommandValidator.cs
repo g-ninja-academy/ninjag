@@ -11,18 +11,19 @@ namespace Ninja.Application.Validations
     {
         public AddUserCommandValidator()
         {
-            RuleFor(u => u.UserViewModel.Name).NotEmpty().WithMessage(ValidationMessage.EmptyMessage);
-            RuleFor(u => u.UserViewModel.Name).Length(2, 40).WithMessage(ValidationMessage.MinMaxLength);
-            RuleFor(u => u.UserViewModel.Email).NotEmpty().WithMessage(ValidationMessage.EmptyMessage);
-            RuleFor(u => u.UserViewModel.Email).Matches(RegexFormat.GenericEmailRegex).WithMessage(ValidationMessage.EmailFormat);
-            RuleFor(u => u.UserViewModel.Lastname).NotEmpty().WithMessage(ValidationMessage.EmptyMessage);
-            RuleFor(u => u.UserViewModel.Lastname).Length(2, 40).WithMessage(ValidationMessage.MinMaxLength);
-            RuleFor(u => u.UserViewModel.TelephoneNumber).NotEmpty().WithMessage(ValidationMessage.EmptyMessage);
-            RuleFor(u => u.UserViewModel.TelephoneNumber).Matches(RegexFormat.GenericTelephoneNumberRegex).WithMessage(ValidationMessage.TelephoneNumberFormat);
-            RuleFor(u => u.UserViewModel.Age).NotEmpty().WithMessage(ValidationMessage.EmptyMessage);
-            RuleFor(u => u.UserViewModel.Age).InclusiveBetween(18,60).WithMessage(ValidationMessage.AgeRange);
-            RuleFor(u => u.UserViewModel.Address).NotNull().WithMessage("");
-            RuleForEach(u => u.UserViewModel.Address).ChildRules(a => {
+            RuleFor(u => u.User.Name).NotEmpty().WithMessage(ValidationMessage.EmptyMessage);
+            RuleFor(u => u.User.Name).Length(2, 40).WithMessage(ValidationMessage.MinMaxLength);
+            RuleFor(u => u.User.Email).NotEmpty().WithMessage(ValidationMessage.EmptyMessage);
+            RuleFor(u => u.User.Email).Matches(RegexFormat.GenericEmailRegex).WithMessage(ValidationMessage.EmailFormat);
+            RuleFor(u => u.User.Lastname).NotEmpty().WithMessage(ValidationMessage.EmptyMessage);
+            RuleFor(u => u.User.Lastname).Length(2, 40).WithMessage(ValidationMessage.MinMaxLength);
+            RuleFor(u => u.User.TelephoneNumber).NotEmpty().WithMessage(ValidationMessage.EmptyMessage);
+            RuleFor(u => u.User.TelephoneNumber).Matches(RegexFormat.GenericTelephoneNumberRegex).WithMessage(ValidationMessage.TelephoneNumberFormat);
+            RuleFor(u => u.User.Age).NotEmpty().WithMessage(ValidationMessage.EmptyMessage);
+            RuleFor(u => u.User.Age).GreaterThanOrEqualTo(18).WithMessage(ValidationMessage.AgeRange);
+            RuleFor(u => u.User.Address).NotNull().WithMessage(ValidationMessage.EmptyMessage);
+            RuleFor(u => u.User.Address).Must(val => val.Count > 0).WithMessage(ValidationMessage.AtLeastOne);
+            RuleForEach(u => u.User.Address).ChildRules(a => {
                 a.RuleFor(d => d.Description).NotEmpty().WithMessage(ValidationMessage.EmptyMessage);
                 a.RuleFor(d => d.Description).Length(2, 100).WithMessage(ValidationMessage.MinMaxLength);
             });

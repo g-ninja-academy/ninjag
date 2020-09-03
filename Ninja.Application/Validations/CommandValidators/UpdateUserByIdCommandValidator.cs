@@ -21,7 +21,7 @@ namespace Ninja.Application.Validations
             RuleFor(u => u.Id).MustAsync(UserAlreadyExist).WithMessage(ValidationMessage.UserNotFounded);
 
             //Check new User info
-            RuleFor(u => u.User).NotNull().WithMessage("");
+            RuleFor(u => u.User).NotNull().WithMessage(ValidationMessage.EmptyMessage);
             RuleFor(u => u.User.Name).NotEmpty().WithMessage(ValidationMessage.EmptyMessage);
             RuleFor(u => u.User.Name).Length(2, 40).WithMessage(ValidationMessage.MinMaxLength);
             RuleFor(u => u.User.Email).NotEmpty().WithMessage(ValidationMessage.EmptyMessage);
@@ -31,8 +31,9 @@ namespace Ninja.Application.Validations
             RuleFor(u => u.User.TelephoneNumber).NotEmpty().WithMessage(ValidationMessage.EmptyMessage);
             RuleFor(u => u.User.TelephoneNumber).Matches(RegexFormat.GenericTelephoneNumberRegex).WithMessage(ValidationMessage.TelephoneNumberFormat);
             RuleFor(u => u.User.Age).NotEmpty().WithMessage(ValidationMessage.EmptyMessage);
-            RuleFor(u => u.User.Age).InclusiveBetween(18, 60).WithMessage(ValidationMessage.AgeRange);
-            RuleFor(u => u.User.Address).NotNull().WithMessage("");
+            RuleFor(u => u.User.Age).GreaterThanOrEqualTo(18).WithMessage(ValidationMessage.AgeRange);
+            RuleFor(u => u.User.Address).NotNull().WithMessage(ValidationMessage.EmptyMessage);
+            RuleFor(u => u.User.Address).Must(val => val.Count > 0).WithMessage(ValidationMessage.AtLeastOne);
             RuleForEach(u => u.User.Address).ChildRules(a => {
                 a.RuleFor(d => d.Description).NotEmpty().WithMessage(ValidationMessage.EmptyMessage);
                 a.RuleFor(d => d.Description).Length(2, 100).WithMessage(ValidationMessage.MinMaxLength);

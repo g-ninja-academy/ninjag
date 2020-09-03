@@ -20,7 +20,7 @@ namespace Ninja.Application.UnitTests.HandlersTests.CommandsTests.UsersTest
 
             var result = handler.Handle(new AddUserCommand()
             {
-                UserViewModel = new BasicUserVm()
+                User = new BasicUserVm()
                 {
                     Name = name,
                     Email = email

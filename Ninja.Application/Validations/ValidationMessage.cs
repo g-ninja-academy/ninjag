@@ -11,6 +11,7 @@ namespace Ninja.Application.Validations
         public const string EmailFormat = "{PropertyName} is not a valid email format.";
         public const string UserNotFounded = "We can't find the specified user: {PropertyValue}.";
         public const string TelephoneNumberFormat = "{PropertyName} is not a valid telephone format.";
-        public const string AgeRange = "{PropertyName} must be between age range {ComparisonValue}";
+        public const string AgeRange = "{PropertyName} must be grater or equal to {ComparisonValue}";
+        public const string AtLeastOne = "{PropertyName} must have at least one element.";
     }
 }

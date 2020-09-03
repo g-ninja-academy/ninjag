@@ -19,6 +19,6 @@ namespace Ninja.Application.Common.Models
         
         public int Age { get; set; }
         
-        public List<AddressVM> Address { get; set; }
+        public List<AddressVm> Address { get; set; }
     }
 }
