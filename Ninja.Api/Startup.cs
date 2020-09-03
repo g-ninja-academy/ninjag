@@ -14,6 +14,7 @@ using Microsoft.Extensions.Options;
 using Ninja.Infrastructure;
 using Ninja.Infrastructure.Persistence.Common;
 using Ninja.Infrastructure.Persistence.Repositories;
+using FluentValidation;
 
 namespace Ninja.Api
 {
@@ -59,6 +60,8 @@ namespace Ninja.Api
                 config =>
                     config.IncludeXmlComments(Path.Combine(basePath, "Ninja.Api.xml"))
             );
+
+            services.AddValidatorsFromAssembly(typeof(Startup).Assembly);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

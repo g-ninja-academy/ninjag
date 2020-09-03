@@ -16,4 +16,9 @@
     <ProjectReference Include="..\Ninja.Domain\Ninja.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="PipelineBehaviors\" />
+    <Folder Include="Validations\QueryValidators\" />
+  </ItemGroup>
+
 </Project>
