@@ -39,6 +39,8 @@ namespace Ninja.Api
             services.AddSingleton<ILoggin, Loggin>();
             services.AddSingleton<IUnitOfWork, UnitOfWork>();
 
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidatorPipelineBehavior<,>));
+
             services.AddMediatR(typeof(GetAllUsersQuery));
 
             services.AddSwaggerGen(

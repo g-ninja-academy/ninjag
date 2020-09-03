@@ -6,6 +6,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Ninja.Application.Common.Interfaces;
+using FluentValidation;
 
 namespace Ninja.Application.Middlewares
 {
@@ -38,6 +39,11 @@ namespace Ninja.Application.Middlewares
 
             switch (exception)
             {
+                case ValidationException validationException:
+                    context.Response.StatusCode = StatusCodes.Status400BadRequest;
+                    message = JsonSerializer.Serialize(validationException.Errors);
+                    _logger.Error(message);
+                    break;
                 case Exception e:
                     _logger.Error(e.Message);
                     context.Response.StatusCode = StatusCodes.Status500InternalServerError;
