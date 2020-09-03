@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="FluentValidation.AspNetCore" Version="9.2.0" />
     <PackageReference Include="MediatR" Version="8.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.Http" Version="1.1.0" />
     <PackageReference Include="MongoDB.Driver" Version="2.11.1" />
@@ -13,6 +14,11 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Ninja.Domain\Ninja.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="PipelineBehaviors\" />
+    <Folder Include="Validations\QueryValidators\" />
   </ItemGroup>
 
 </Project>
