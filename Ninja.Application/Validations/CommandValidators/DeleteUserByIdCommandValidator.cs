@@ -9,7 +9,7 @@ using Ninja.Application.Users.Commands;
 
 namespace Ninja.Application.Validations
 {
-    class DeleteUserByIdCommandValidator : AbstractValidator<DeleteUserByIdCommand>
+    public class DeleteUserByIdCommandValidator : AbstractValidator<DeleteUserByIdCommand>
     {
         public readonly IUnitOfWork _unitOfWork;
         public DeleteUserByIdCommandValidator(IUnitOfWork unitOfWork)
