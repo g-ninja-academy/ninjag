@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Ninja.Application.Validations
 {
-    class UpdateUserByIdCommandValidator : AbstractValidator<UpdateUserByIdCommand>
+    public class UpdateUserByIdCommandValidator : AbstractValidator<UpdateUserByIdCommand>
     {
         private readonly IUnitOfWork _unitOfWork;
         public UpdateUserByIdCommandValidator(IUnitOfWork unitOfWork)
