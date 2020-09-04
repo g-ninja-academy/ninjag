@@ -10,19 +10,26 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Ninja.Api.Controllers.UserController.Get(System.Int32)">
+        <member name="M:Ninja.Api.Controllers.UserController.Get(System.Guid)">
             <summary>
             Method that retrieves only 1 user by Id
             </summary>
             <param name="id">User Identifier</param>
             <returns></returns>
         </member>
-        <member name="M:Ninja.Api.Controllers.UserController.Put(System.Int32,Ninja.Application.Common.Models.UserVm)">
+        <member name="M:Ninja.Api.Controllers.UserController.Put(System.Guid,Ninja.Application.Common.Models.BasicUserVm)">
             <summary>
             Method for update an user record 
             </summary>
             <param name="id">User Identifier</param>
             <param name="user">New user info like Name or Email</param>
+            <returns></returns>
+        </member>
+        <member name="M:Ninja.Api.Controllers.UserController.Delete(System.Guid)">
+            <summary>
+            Method that delete only 1 user by Id
+            </summary>
+            <param name="id">User Identifier</param>
             <returns></returns>
         </member>
     </members>

@@ -9,6 +9,8 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Ninja.Domain.Entities.UserModel;
+using System.Linq;
+using Ninja.Domain.Entities.AddressModel;
 
 namespace Ninja.Application.Common.Handlers.Commands
 {
@@ -30,14 +32,30 @@ namespace Ninja.Application.Common.Handlers.Commands
                 return Response.Fail404NotFound<UserVm>("User Not Found");
             }
 
-            var userToUpdate = new User() { Email = request.User.Email, Name = request.User.Name, Id = request.Id };
+            var userToUpdate = new User()
+            {
+                Name = request.User.Name, 
+                Lastname = request.User.Lastname,
+                Email = request.User.Email, 
+                Age = request.User.Age,
+                TelephoneNumber = request.User.TelephoneNumber,
+                Address = request.User.Address.Select(adress => new Address() { Description = adress.Description }).ToList(),
+            };
 
             var userResult = await _unitOfWork.Users.Update(x => x.Id == request.Id, userToUpdate);
 
-            user.Email = userResult.Email;
-            user.Name = userResult.Name;
+            UserVm userResponse = new UserVm()
+            {
+                Id = userResult.Id,
+                Name = userResult.Name,
+                Lastname = userResult.Lastname,
+                Age = userResult.Age,
+                Email = userResult.Email,
+                TelephoneNumber = userResult.TelephoneNumber,
+                Address = userResult.Address.Select(adress => new AddressVm() { Description = adress.Description }).ToList(),
+            };
 
-            return Response.Ok200(new UserVm() {Id = user.Id, Name = user.Name, Email = user.Email});
+            return Response.Ok200(userResponse);
         }
     }
 }
