@@ -10,6 +10,6 @@ namespace Ninja.Application.Common.Interfaces
     {
         Task<Guid> CreateOrder(CreateOrder createOrder);
         Task<IEnumerable<Order>> GetOrders();
-        Task<Order> GetOrderById(Guid OrderId);
+        Task<Order> GetOrderById(Guid orderId);
     }
 }

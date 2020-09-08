@@ -25,11 +25,4 @@
     <ProjectReference Include="..\Ninja.Domain\Ninja.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Common\Handlers\Orders\Commands\" />
-    <Folder Include="Common\Handlers\Orders\Queries\" />
-    <Folder Include="Orders\Commands\" />
-    <Folder Include="Orders\Queries\" />
-  </ItemGroup>
-
 </Project>

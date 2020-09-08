@@ -7,58 +7,59 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Ninja.Application.Common;
 using Ninja.Application.Common.Models;
-using Ninja.Application.Products.Commands;
-using Ninja.Application.Products.Queries;
+using Ninja.Application.Orders.Commands;
+using Ninja.Application.Orders.Queries;
+
+// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace Ninja.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ProductController : ControllerBase
+    public class OrderController : ControllerBase
     {
         private readonly IMediator _mediator;
-
-        public ProductController(IMediator mediator)
+        public OrderController(IMediator mediator)
         {
             _mediator = mediator;
         }
 
         /// <summary>
-        /// Get all products
+        /// Get All Orders
         /// </summary>
         /// <returns></returns>
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<Response<List<ProductVm>>>> Get()
+        public async Task<ActionResult<Response<List<OrderVm>>>> Get()
         {
-            var result = await _mediator.Send(new GetAllProductsQuery());
+            var result = await _mediator.Send(new GetAllOrdersQuery());
             return StatusCode(result.StatusCode, result);
         }
 
         /// <summary>
-        /// Get a product by Id
+        /// Get by Order Id 
         /// </summary>
-        /// <param name="id">The product idenftifier</param>
+        /// <param name="id">Order identifier</param>
         /// <returns></returns>
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<ProductVm>> Get(Guid id)
+        public async Task<ActionResult<OrderVm>> Get(Guid id)
         {
-            var result = await _mediator.Send(new GetProductByIdQuery(id));
+            var result = await _mediator.Send(new GetOrderByIdQuery(id));
             return StatusCode(result.StatusCode, result);
         }
 
         /// <summary>
-        /// Create a new Product
+        /// Create a new Order
         /// </summary>
-        /// <param name="value">Product object to be created</param>
+        /// <param name="value">Order object to be created</param>
         /// <returns></returns>
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<ProductVm>> Post([FromBody] ProductVm value)
+        public async Task<ActionResult<OrderVm>> Post([FromBody] OrderVm value)
         {
-            var result = await _mediator.Send(new AddProductCommand() { Product = value});
+            var result = await _mediator.Send(new AddOrderCommand(value.UserId, value.ProductOrders));
             return StatusCode(result.StatusCode, result);
         }
     }

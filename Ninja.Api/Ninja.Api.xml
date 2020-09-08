@@ -4,6 +4,26 @@
         <name>Ninja.Api</name>
     </assembly>
     <members>
+        <member name="M:Ninja.Api.Controllers.OrderController.Get">
+            <summary>
+            Get All Orders
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Ninja.Api.Controllers.OrderController.Get(System.Guid)">
+            <summary>
+            Get by Order Id 
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Ninja.Api.Controllers.OrderController.Post(Ninja.Application.Common.Models.OrderVm)">
+            <summary>
+            Create a new Order
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
         <member name="M:Ninja.Api.Controllers.UserController.Get">
             <summary>
             Method that retrieves the entire list of users

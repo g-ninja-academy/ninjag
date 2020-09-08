@@ -33,13 +33,14 @@ namespace Ninja.Infrastructure.Services
                  );
 
             var result = await HttpClient.SendAsync(httpMessage);
-            return await HttpUtils.MapHttpResponse<Guid>(result);
+            var response = await HttpUtils.MapHttpResponse<Order>(result);
+            return response.OrderId;
         }
 
-        public async Task<Order> GetOrderById(Guid OrderId)
+        public async Task<Order> GetOrderById(Guid orderId)
         {
             var httpMessage = HttpUtils.GetRequestMessage(
-               $"{_orderSettings.Url}{_orderSettings.GetOrderById}",
+               $"{_orderSettings.Url}{_orderSettings.GetOrderById}{orderId}",
                HttpMethod.Get
                );
             var result = await HttpClient.SendAsync(httpMessage);
