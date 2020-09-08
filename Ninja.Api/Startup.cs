@@ -16,6 +16,8 @@ using Ninja.Infrastructure.Persistence.Common;
 using Ninja.Infrastructure.Persistence.Repositories;
 using FluentValidation;
 using Ninja.Application.Validations;
+using Ninja.Infrastructure.Services.Settings;
+using Ninja.Infrastructure.Services;
 
 namespace Ninja.Api
 {
@@ -36,11 +38,15 @@ namespace Ninja.Api
             MongoMap.Configure();
 
             services.Configure<NinjaDatabaseSettings>(Configuration.GetSection("NinjaDatabaseSettings"));
+            services.Configure<ProductSettings>(Configuration.GetSection("ProductService"));
+            services.Configure<OrderSettings>(Configuration.GetSection("OrderService"));
 
             services.AddControllers();
             services.AddSingleton<ILoggin, Loggin>();
             services.AddSingleton<IUnitOfWork, UnitOfWork>();
-
+            services.AddHttpClient();
+            services.AddSingleton<IProductService, ProductService>();
+            services.AddSingleton<IOrderService, OrderService>();
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidatorPipelineBehavior<,>));
 
             services.AddMediatR(typeof(GetAllUsersQuery));
