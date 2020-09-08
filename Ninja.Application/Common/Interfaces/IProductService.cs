@@ -2,13 +2,14 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Ninja.Application.Common.Interfaces
 {
     public interface IProductService
     {
-        Guid CreateProduct(Product product);
-        IEnumerable<Product> GetProducts();
-        Product GetProductById(Guid productId);
+        Task<Guid> CreateProduct(Product product);
+        Task<IEnumerable<Product>> GetProducts();
+        Task<Product> GetProductById(Guid productId);
     }
 }

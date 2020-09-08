@@ -2,13 +2,14 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Ninja.Application.Common.Interfaces
 {
     public interface IOrderService
     {
-        Guid CreateOrder(IEnumerable<ProductOrder> productOrders);
-        IEnumerable<Order> GetOrders();
-        Order GetOrderById(Guid OrderId);
+        Task<Guid> CreateOrder(CreateOrder createOrder);
+        Task<IEnumerable<Order>> GetOrders();
+        Task<Order> GetOrderById(Guid OrderId);
     }
 }
