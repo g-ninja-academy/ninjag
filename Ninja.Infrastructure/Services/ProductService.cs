@@ -41,7 +41,7 @@ namespace Ninja.Infrastructure.Services
         public async Task<Product> GetProductById(Guid productId)
         {
             var httpMessage = HttpUtils.GetRequestMessage(
-               $"{_productSettings.Url}{_productSettings.GetProductById}",
+               $"{_productSettings.Url}{_productSettings.GetProductById}{productId}",
                HttpMethod.Get
                );
             var result = await HttpClient.SendAsync(httpMessage);

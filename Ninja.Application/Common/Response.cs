@@ -16,6 +16,11 @@ namespace Ninja.Application.Common
         {
             return new Response<T>(data, message, 404, false);
         }
+
+        public static Response<T> Fail500ServiceError<T>(string message, T data = default)
+        {
+            return new Response<T>(data, message, 500, false);
+        }
     }
 
 

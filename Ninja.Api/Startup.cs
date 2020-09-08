@@ -44,6 +44,7 @@ namespace Ninja.Api
             services.AddControllers();
             services.AddSingleton<ILoggin, Loggin>();
             services.AddSingleton<IUnitOfWork, UnitOfWork>();
+            services.AddHttpClient();
             services.AddSingleton<IProductService, ProductService>();
             services.AddSingleton<IOrderService, OrderService>();
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidatorPipelineBehavior<,>));
