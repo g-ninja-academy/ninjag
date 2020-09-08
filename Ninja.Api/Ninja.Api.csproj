@@ -24,6 +24,7 @@
   <ItemGroup>
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="8.1.0" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.9" />
+    <PackageReference Include="MongoDB.Driver" Version="2.11.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.5.1" />
   </ItemGroup>
 
@@ -31,6 +32,14 @@
     <ProjectReference Include="..\Ninja.Application\Ninja.Application.csproj" />
     <ProjectReference Include="..\Ninja.Infrastructure\Ninja.Infrastructure.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Ninja.Api.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
 
 
 </Project>

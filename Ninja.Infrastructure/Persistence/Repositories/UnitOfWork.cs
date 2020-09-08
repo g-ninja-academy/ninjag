@@ -1,6 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Text;
+using Microsoft.Extensions.Options;
+using Microsoft.VisualBasic.CompilerServices;
+using MongoDB.Driver;
 using Ninja.Application.Common.Interfaces;
 using Ninja.Domain.Entities.UserModel;
 
@@ -8,19 +12,13 @@ namespace Ninja.Infrastructure.Persistence.Repositories
 {
     public class UnitOfWork : IUnitOfWork
     {
-        public List<User> users { get; set; }
+        public IMongoCollection<User> users { get; set; }
 
-        public UnitOfWork()
+        public UnitOfWork(IOptions<NinjaDatabaseSettings> settings)
         {
-            users = new List<User>();
-            Users = new Repository<User>(users);
+            Users = new Repository<User>(settings);
         }
 
         public IRepository<User> Users { get; }
-
-        public bool Complete()
-        {
-            return true;
-        }
     }
 }

@@ -6,6 +6,6 @@ namespace Ninja.Application.Users.Commands
 {
     public class AddUserCommand : IRequest<Response<UserVm>>
     {
-        public UserVm UserViewModel { get; set; }
+        public BasicUserVm User { get; set; }
     }
 }
