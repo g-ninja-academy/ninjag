@@ -32,14 +32,14 @@ namespace Ninja.Api.UnitTests.Controllers.Users
             return new UserVm()
             {
                 Email = "max@globant.com",
-                Id = 1,
+                Id = new Guid("524e59de-7ccd-4d0d-bf1b-f7b5f93f6870"),
                 Name = "Max"
             };
         }
 
         [Test]
-        [TestCase(1)]
-        public void GetUserById_Successfully(int id)
+        [TestCase("524e59de-7ccd-4d0d-bf1b-f7b5f93f6870")]
+        public void GetUserById_Successfully(Guid id)
         {
             _mediator.Setup(m => m.Send(It.IsAny<GetUserByIdQuery>(), default))
               .ReturnsAsync(Response.Ok200(GetUserResponse()));
@@ -52,13 +52,13 @@ namespace Ninja.Api.UnitTests.Controllers.Users
 
             Assert.AreEqual(StatusCodes.Status200OK, objectResult.StatusCode);
             Assert.IsInstanceOf<UserVm>(user);
-            Assert.AreEqual(1, user.Id);
+            Assert.AreEqual(new Guid("524e59de-7ccd-4d0d-bf1b-f7b5f93f6870"), user.Id);
 
         }
 
         [Test]
-        [TestCase(1)]
-        public void GetUserById_NotFound(int id)
+        [TestCase("524e59de-7ccd-4d0d-bf1b-f7b5f93f6870")]
+        public void GetUserById_NotFound(Guid id)
         {
             _mediator.Setup(m => m.Send(It.IsAny<GetUserByIdQuery>(), default))
               .ReturnsAsync(Response.Fail404NotFound<UserVm>(""));

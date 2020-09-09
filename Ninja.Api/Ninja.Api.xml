@@ -4,25 +4,52 @@
         <name>Ninja.Api</name>
     </assembly>
     <members>
+        <member name="M:Ninja.Api.Controllers.OrderController.Get">
+            <summary>
+            Get All Orders
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Ninja.Api.Controllers.OrderController.Get(System.Guid)">
+            <summary>
+            Get by Order Id 
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Ninja.Api.Controllers.OrderController.Post(Ninja.Application.Common.Models.OrderVm)">
+            <summary>
+            Create a new Order
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
         <member name="M:Ninja.Api.Controllers.UserController.Get">
             <summary>
             Method that retrieves the entire list of users
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Ninja.Api.Controllers.UserController.Get(System.Int32)">
+        <member name="M:Ninja.Api.Controllers.UserController.Get(System.Guid)">
             <summary>
             Method that retrieves only 1 user by Id
             </summary>
             <param name="id">User Identifier</param>
             <returns></returns>
         </member>
-        <member name="M:Ninja.Api.Controllers.UserController.Put(System.Int32,Ninja.Application.Common.Models.UserVm)">
+        <member name="M:Ninja.Api.Controllers.UserController.Put(System.Guid,Ninja.Application.Common.Models.BasicUserVm)">
             <summary>
             Method for update an user record 
             </summary>
             <param name="id">User Identifier</param>
             <param name="user">New user info like Name or Email</param>
+            <returns></returns>
+        </member>
+        <member name="M:Ninja.Api.Controllers.UserController.Delete(System.Guid)">
+            <summary>
+            Method that delete only 1 user by Id
+            </summary>
+            <param name="id">User Identifier</param>
             <returns></returns>
         </member>
     </members>

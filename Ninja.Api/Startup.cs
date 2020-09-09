@@ -10,7 +10,14 @@ using Ninja.Application.Middlewares;
 using Ninja.Application.Services;
 using Ninja.Application.Users.Queries;
 using System.IO;
+using Microsoft.Extensions.Options;
+using Ninja.Infrastructure;
+using Ninja.Infrastructure.Persistence.Common;
 using Ninja.Infrastructure.Persistence.Repositories;
+using FluentValidation;
+using Ninja.Application.Validations;
+using Ninja.Infrastructure.Services.Settings;
+using Ninja.Infrastructure.Services;
 
 namespace Ninja.Api
 {
@@ -28,9 +35,19 @@ namespace Ninja.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            MongoMap.Configure();
+
+            services.Configure<NinjaDatabaseSettings>(Configuration.GetSection("NinjaDatabaseSettings"));
+            services.Configure<ProductSettings>(Configuration.GetSection("ProductService"));
+            services.Configure<OrderSettings>(Configuration.GetSection("OrderService"));
+
             services.AddControllers();
             services.AddSingleton<ILoggin, Loggin>();
             services.AddSingleton<IUnitOfWork, UnitOfWork>();
+            services.AddHttpClient();
+            services.AddSingleton<IProductService, ProductService>();
+            services.AddSingleton<IOrderService, OrderService>();
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidatorPipelineBehavior<,>));
 
             services.AddMediatR(typeof(GetAllUsersQuery));
 
@@ -50,6 +67,8 @@ namespace Ninja.Api
                 config =>
                     config.IncludeXmlComments(Path.Combine(basePath, "Ninja.Api.xml"))
             );
+
+            services.AddValidatorsFromAssembly(typeof(AddUserCommandValidator).Assembly);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
