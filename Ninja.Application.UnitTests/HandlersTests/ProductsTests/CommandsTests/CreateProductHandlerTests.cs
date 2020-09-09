@@ -40,7 +40,7 @@ namespace Ninja.Application.UnitTests.HandlersTests.ProductsTests.CommandsTests
         [Test,TestCaseSource("GetProduct")]
         public void CreateProductSuccessfully(Product product) 
         {
-            //_productService.Setup(ps => ps.CreateProduct(product)).ReturnsAsync();
+            _productService.Setup(ps => ps.CreateProduct(It.IsAny<Product>())).ReturnsAsync(product.Id);
 
             var handler = new AddProductCommandHandler(_productService.Object);
 

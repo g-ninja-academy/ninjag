@@ -5,6 +5,7 @@ using Ninja.Application.Common.Handlers.Products.Queries;
 using Ninja.Application.Common.Interfaces;
 using Ninja.Application.Common.Models;
 using Ninja.Application.Products.Queries;
+using Ninja.Domain.Entities.ProductModel;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
@@ -39,7 +40,7 @@ namespace Ninja.Application.UnitTests.HandlersTests.ProductsTests.QueriesTests
         [Test, TestCaseSource("GetProduct")]
         public void GetProductByIdSuccessfully(ProductVm product)
         {
-           
+            _productService.Setup(ps => ps.GetProductById(It.IsAny<Guid>())).ReturnsAsync(new Product { Id = product.Id, Name = product.Name, Price=product.Price});
             var handler = new GetProductByIdQueryHandler(_productService.Object);
 
             var result = handler.Handle(new GetProductByIdQuery(product.Id), default);
