@@ -18,5 +18,6 @@ namespace Ninja.Application.Orders.Commands
             Products = products;
         }
 
+
     }
 }
