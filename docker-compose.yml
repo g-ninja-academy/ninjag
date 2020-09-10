@@ -2,15 +2,19 @@ version: "3.1"
 services:
   mongo:
     image: mongo
-    restart: always
+    container_name: mongodb
+    restart: "no"
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: example
     ports:
       - 2727:27017
+    networks:
+       - ninja-network
 
   mongo-express:
     image: mongo-express
+    container_name: mongodb-express
     restart: always
     ports:
       - 8081:8081
@@ -19,3 +23,18 @@ services:
       ME_CONFIG_MONGODB_ADMINPASSWORD: example
     depends_on:
       - mongo
+
+  ninjaapi:
+    build: .
+    image: ninjaapi:v1  
+    container_name: ninjaapi
+    restart: always
+    ports:
+      - 4999:80
+    links:
+      - "mongo:mongo"
+    networks:
+       - ninja-network
+networks:
+  ninja-network:
+       external: true

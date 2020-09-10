@@ -14,14 +14,34 @@
             <summary>
             Get by Order Id 
             </summary>
-            <param name="id"></param>
+            <param name="id">Order identifier</param>
             <returns></returns>
         </member>
         <member name="M:Ninja.Api.Controllers.OrderController.Post(Ninja.Application.Common.Models.OrderVm)">
             <summary>
             Create a new Order
             </summary>
-            <param name="value"></param>
+            <param name="value">Order object to be created</param>
+            <returns></returns>
+        </member>
+        <member name="M:Ninja.Api.Controllers.ProductController.Get">
+            <summary>
+            Get all products
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Ninja.Api.Controllers.ProductController.Get(System.Guid)">
+            <summary>
+            Get a product by Id
+            </summary>
+            <param name="id">The product idenftifier</param>
+            <returns></returns>
+        </member>
+        <member name="M:Ninja.Api.Controllers.ProductController.Post(Ninja.Application.Common.Models.ProductVm)">
+            <summary>
+            Create a new Product
+            </summary>
+            <param name="value">Product object to be created</param>
             <returns></returns>
         </member>
         <member name="M:Ninja.Api.Controllers.UserController.Get">
